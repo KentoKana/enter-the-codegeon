@@ -1,7 +1,22 @@
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
 body {
-	margin: 0;
+  margin: 0;
+}
+
+.page-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 #challenge-canvas {
-	border: 1px solid #000;
+  border: 1px solid #000;
 }

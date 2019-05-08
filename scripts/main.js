@@ -1,14 +1,21 @@
 "use strict";
 
 const pageInit = () => {
+	const playingArea = document.querySelector("#playing-area");
 	const challengeCanvas = new ChallengeCanvas();
-	challengeCanvas.drawGrid();
+	const moveButtons = document.querySelectorAll("button.movement-buttons");
 
-	document.body.appendChild(challengeCanvas.getCanvas());
+	playingArea.appendChild(challengeCanvas.canvas);
 
 	window.onresize = () => {
-		challengeCanvas.canvasResize();
+		challengeCanvas.canvasRefresh();
 	};
+
+	for(let button of moveButtons) {
+		button.addEventListener('mouseup', function(e) {
+			challengeCanvas.movePlayer(e.target.value);
+		})
+	}
 }
 
 window.onload = pageInit;
