@@ -4,6 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once './vendor/autoload.php';
 $client = new MongoDB\Client(env('MONGO_URI'));
+$googleLoginBtn="";
 
 if(isset($_SESSION['userid']) && !empty($_SESSION['userid']))
 {
@@ -12,6 +13,15 @@ if(isset($_SESSION['userid']) && !empty($_SESSION['userid']))
 }
 else
 {
-  echo '<a href="googleauth.php"><img src="images/btn_google_signin_light_normal_web.png" alt="login with google button"/></a>';
+  return $googleLoginBtn = '<a href="googleauth.php"><img src="images/btn_google_signin_light_normal_web.png" alt="login with google button"/></a>';
 }
 ?>
+<!DOCTYPE html>
+<html>
+  <form action='' method='POST'>
+    <input type='text'>
+    <input type='password'>
+    <button type="submit">Login</button>
+    <?= $googleLoginBtn ?>
+  </form>
+</html>
