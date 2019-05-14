@@ -6,8 +6,8 @@ function Player(widthInTiles, heightInTiles, xPosition=0, yPosition=0) {
 
     this.width = 64;
     this.height = 64;
-    this.spriteSheetY = 0;
-    this.spriteSheetLocations = [0, 64, 384, 448];
+    this.spriteSheetY = 2;
+    this.spriteSheetLocations = [64, 384, 0, 448];
     this.currFrame = 0;
     this.animationFrames = [0, 64, 128, 192];
     this.playerImage = new Image();
