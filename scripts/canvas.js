@@ -15,7 +15,7 @@ function ChallengeCanvas() {
 		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
 		this.context.beginPath();
-		this.context.strokeStyle = "red";
+		this.context.strokeStyle = "black";
 
 		let currentX = 0;
 		let currentY = 0;
@@ -56,12 +56,12 @@ function ChallengeCanvas() {
 	};
 
 	this.initializePlayer = function() {
-		this.player = new Player(this.widthInTiles, this.heightInTiles, 1, 1);
+		this.player = new Player(this.widthInTiles, this.heightInTiles, 2, 3);
 		this.renderPlayer();
 	};
 
 	this.renderPlayer = function() {
-		this.context.fillStyle = "fuchsia";
+		this.context.fillStyle = "green";
 		this.context.fillRect(
 			this.player.xPosition * this.gridSize, 
 			this.player.yPosition * this.gridSize,

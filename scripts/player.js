@@ -1,3 +1,5 @@
+"use strict";
+
 function Player(widthInTiles, heightInTiles, xPosition=0, yPosition=0) {
 	this.xPosition = xPosition;
 	this.yPosition = yPosition;
