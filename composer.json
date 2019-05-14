@@ -1,0 +1,6 @@
+{
+  "require": {
+    "mongodb/mongodb": "^1.4",
+    "league/oauth2-google": "^3.0"
+  }
+}
