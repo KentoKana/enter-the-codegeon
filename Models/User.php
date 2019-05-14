@@ -1,6 +1,7 @@
-<?php 
+<?php
 
-class User {
+class User
+{
     private $collection;
     private $username;
     private $email;
@@ -8,66 +9,90 @@ class User {
     private $lastName;
     private $password;
 
-    public function __construct($collection) 
+    public function __construct($collection)
     {
         $this->collection = $collection;
     }
 
-    public function setFirstName($firstName) {
-        if($firstName == '') {
+    // Setters and Getters
+    public function setFirstName($firstName)
+    {
+        if ($firstName == '') {
             return false;
         } else {
             return $this->firstName = $firstName;
         }
     }
-    public function getFirstName(){
+    public function getFirstName()
+    {
         return $this->firstName;
     }
-    
-    public function setLastName($lastName) {
-        if($lastName == '') {
+
+    public function setLastName($lastName)
+    {
+        if ($lastName == '') {
             return false;
         } else {
             return $this->lastName = $lastName;
         }
     }
-    public function getLastName(){
+    public function getLastName()
+    {
         return $this->lastName;
     }
 
-    public function setUsername($username) {
-        if($username == '') {
+    public function setUsername($username)
+    {
+        if ($username == '') {
             return false;
         } else {
             return $this->username = $username;
         }
     }
-    public function getUsername(){
+    public function getUsername()
+    {
         return $this->username;
     }
 
-    public function setPassword($password) {
-        if($password == '') {
+    public function setPassword($password, $passConfirm)
+    {
+        if (
+            $password == '' ||
+            $passConfirm == '' ||
+            $password != $passConfirm
+        ) {
             return false;
         } else {
-            return $this->password = $password;
+            return $this->password = $passConfirm;
         }
     }
-    public function getPassword(){
+    public function getPassword()
+    {
         return $this->password;
     }
 
-    public function setEmail($email){
-        if($email == '' || filter_var($email, FILTER_VALIDATE_EMAIL) == false) {
+    public function setEmail($email)
+    {
+        if ($email == '' || filter_var($email, FILTER_VALIDATE_EMAIL) == false) {
             return false;
         } else {
             return $this->email = $email;
         }
     }
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
+    // CRUD Methods
+    public function addUser()
+    {
+        $this->collection->insertOne([
+            'firstName' => $this->firstName,
+            'lastName' => $this->lastName,
+            'username' => $this->username,
+            'email' => $this->email,
+            'password' => $this->password,
+        ]);
+    }
 }
-
-?>
