@@ -1,15 +1,17 @@
 "use strict";
 
-let disableButtons = (buttons) => {
+let disableButtons = (buttons, startButton) => {
 	for(let button of buttons) {
 		button.disabled = true;
 	}
+	startButton.disabled = true;
 }
 
-let enableButtons = (buttons) => {
+let enableButtons = (buttons, startButton) => {
 	for(let button of buttons) {
 		button.disabled = false;
 	}
+	startButton.disabled = false;
 }
 
 const pageInit = () => {
@@ -35,12 +37,12 @@ const pageInit = () => {
 	}
 
 	startButton.addEventListener('mouseup', async () => {
-		disableButtons(moveButtons);
+		disableButtons(moveButtons, startButton);
 
 		let isDone = await mazeCanvas.movePlayer(moves);
 
 		if(isDone) {
-			enableButtons(moveButtons);
+			enableButtons(moveButtons, startButton);
 			moveList.innerHTML = "Move List: ";
 			moves = [];
 		}
