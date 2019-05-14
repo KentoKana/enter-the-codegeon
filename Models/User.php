@@ -54,7 +54,7 @@ class User
         return $this->username;
     }
 
-    public function setPassword($password, $passConfirm)
+    public function setRegisterPassword($password, $passConfirm)
     {
         if (
             $password == '' ||
@@ -66,7 +66,20 @@ class User
             return $this->password = $passConfirm;
         }
     }
-    public function getPassword()
+    public function getRegisterPassword()
+    {
+        return $this->password;
+    }
+
+    public function setLoginPass($password)
+    {
+        if ($password == '') {
+            return false;
+        } else {
+            return $this->password = $password;
+        }
+    }
+    public function getLoginPass($password)
     {
         return $this->password;
     }
@@ -87,12 +100,17 @@ class User
     // CRUD Methods
     public function addUser()
     {
-        $this->collection->insertOne([
+        $record = $this->collection->insertOne([
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
             'username' => $this->username,
             'email' => $this->email,
             'password' => $this->password,
         ]);
+
+        if ($record->getInsertedCount() == 1) {
+            // insert the userid into session
+            return $record->getInsertedId();
+        }
     }
 }
