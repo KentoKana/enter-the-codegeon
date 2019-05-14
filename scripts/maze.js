@@ -37,10 +37,6 @@ function Maze() {
 
 		this.drawGrid();
 
-		if(this.player){
-			this.renderPlayer();
-		}
-
 		this.renderObstacles(this.obstacleArray);
 
 		this.context.fillStyle = "blue";
@@ -50,6 +46,19 @@ function Maze() {
 			this.gridSize,
 			this.gridSize
 		);
+
+		if(this.player){
+			this.renderPlayer();
+		}
+	}
+
+	this.moveFrame = () => {
+		if (this.player.currFrame === this.player.animationFrames.length - 1) {
+			this.player.currFrame = 0;
+		}
+		else {
+			this.player.currFrame++;
+		}
 	}
 
 	this.player.move = async (direction) => {
@@ -65,6 +74,8 @@ function Maze() {
 				}
 				for(let i=0; i<moveDistance; i++) {
 					setTimeout(() => {
+						this.player.spriteSheetY = 1;
+						this.moveFrame();
 						this.player.yPosition--;
 						this.canvasRefresh();
 					}, moveDelay * i)
@@ -77,6 +88,8 @@ function Maze() {
 				}
 				for(let i=0; i<moveDistance; i++) {
 					setTimeout(() => {
+						this.player.spriteSheetY = 2;
+						this.moveFrame();
 						this.player.xPosition++;
 						this.canvasRefresh();
 					}, moveDelay * i)
@@ -89,6 +102,8 @@ function Maze() {
 				}
 				for(let i=0; i<moveDistance; i++) {
 					setTimeout(() => {
+						this.player.spriteSheetY = 0;
+						this.moveFrame();
 						this.player.yPosition++;
 						this.canvasRefresh();
 					}, moveDelay * i)
@@ -101,6 +116,8 @@ function Maze() {
 				}
 				for(let i=0; i<moveDistance; i++) {
 					setTimeout(() => {
+						this.player.spriteSheetY = 3;
+						this.moveFrame();
 						this.player.xPosition--;
 						this.canvasRefresh();
 					}, moveDelay * i)

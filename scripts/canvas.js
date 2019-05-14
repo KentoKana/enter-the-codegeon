@@ -61,9 +61,13 @@ function ChallengeCanvas() {
 	};
 
 	this.renderPlayer = function() {
-		this.context.fillStyle = "green";
-		this.context.fillRect(
-			this.player.xPosition * this.gridSize, 
+		this.context.drawImage(
+			this.player.playerImage,
+			this.player.animationFrames[this.player.currFrame],
+			this.player.spriteSheetLocations[this.player.spriteSheetY],
+			this.player.width,
+			this.player.height,
+			this.player.xPosition * this.gridSize,
 			this.player.yPosition * this.gridSize,
 			this.gridSize,
 			this.gridSize
@@ -77,4 +81,7 @@ function ChallengeCanvas() {
 
 	this.canvasRefresh();
 	this.initializePlayer();
+	this.player.playerImage.onload = () => {
+		this.renderPlayer();
+	}
 }
