@@ -67,6 +67,7 @@ function Maze() {
 	}
 
 	// 0 = up, 1=right, 2=down, 3=left
+	// Move forward until an obstacle or a wall is hit
 	this.player.move = async (direction) => {
 		let moveDistance = 0;
 		let moveFlag = false;
@@ -131,6 +132,7 @@ function Maze() {
 		});
 	}
 
+	// Rotate player counterclockwise (1) or clockwise (0)
 	this.rotatePlayer = async (direction) => {
 		// turn clockwise
 		if(direction === 0) {

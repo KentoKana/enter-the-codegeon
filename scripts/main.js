@@ -1,17 +1,15 @@
 "use strict";
 
-let disableButtons = (buttons, startButton) => {
+let disableButtons = (buttons) => {
 	for(let button of buttons) {
 		button.disabled = true;
 	}
-	startButton.disabled = true;
 }
 
-let enableButtons = (buttons, startButton) => {
+let enableButtons = (buttons) => {
 	for(let button of buttons) {
 		button.disabled = false;
 	}
-	startButton.disabled = false;
 }
 
 const pageInit = () => {
@@ -20,6 +18,7 @@ const pageInit = () => {
 	const moveButtons = document.querySelectorAll("button.movement-buttons");
 	const moveList = document.querySelector("#move-list");
 	const startButton = document.querySelector("#start-button");
+	const undoButton = document.querySelector("#undo-button");
 
 	let moves = [];
 
@@ -30,22 +29,27 @@ const pageInit = () => {
 	};
 
 	for(let button of moveButtons) {
-		button.addEventListener('mouseup', function(e) {
+		button.addEventListener('mouseup', (e) => {
 			moves.push(e.target.value);
-			moveList.innerHTML += `${e.target.value}, `;
+			moveList.innerHTML = "Move List: " + moves.join(', ');
 		})
 	}
 
 	startButton.addEventListener('mouseup', async () => {
-		disableButtons(moveButtons, startButton);
+		disableButtons([...moveButtons, startButton, undoButton]);
 
 		let isDone = await mazeCanvas.movePlayer(moves);
 
 		if(isDone) {
-			enableButtons(moveButtons, startButton);
+			enableButtons([...moveButtons, startButton, undoButton]);
 			moveList.innerHTML = "Move List: ";
 			moves = [];
 		}
+	});
+
+	undoButton.addEventListener('mouseup', () => {
+		moves.pop();
+		moveList.innerHTML = "Move List: " + moves.join(', ');
 	});
 }
 
