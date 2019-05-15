@@ -8,6 +8,8 @@ if (isset($_SESSION['userid'])) {
     header('location: ./profile.php');
 }
 
+
+
 //Registration Controller 
 if (isset($_POST['submitRegister'])) {
 
@@ -72,20 +74,20 @@ if (isset($_POST['submitLogin'])) {
     $username = $u->getUsername($_POST['username']);
     $password = $u->getLoginPass($_POST['password']);
 
+    //Retrieve User Document from DB
     $loggingInUser = $collection->findOne(['username' => $username]);
     $loggingInUserEmail = $collection->findOne(['email' => $username]);
 
-    // var_dump($loggingInUser['password']);
-    // var_dump($password);
-
     if (
-        (password_verify($password, $loggingInUser['password']) ||
-            password_verify($password, $loggingInUserEmail['password']))
-        &&
-        $password !== NULL
+        password_verify($password, $loggingInUserEmail['password']) 
     ) {
         echo 'Login Successful!';
+        $_SESSION['userid'] = $loggingInUserEmail['_id'];
+        
+    } elseif( password_verify($password, $loggingInUser['password'])){
+        echo 'Login Successful!';
+        $_SESSION['userid'] = $loggingInUser['_id'];
     } else {
-        //       echo 'no match';
+        echo 'no match';
     }
 }
