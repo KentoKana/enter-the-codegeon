@@ -1,14 +1,18 @@
 function Maze() {
 	ChallengeCanvas.call(this);
-	this.obstacleArray = new Array(this.heightInTiles);
+	this.boardArray = new Array(this.heightInTiles);
 	this.moveDelay = 250;
+	this.winningSquare = {
+		row: 9,
+		column: 15
+	};
 
-	this.renderObstacles = function(obstacleArray) {
-		for(let i=0; i<obstacleArray.length; i++) {
-			let innerArray = obstacleArray[i];
+	this.renderObstacles = function(boardArray) {
+		for(let i=0; i<boardArray.length; i++) {
+			let innerArray = boardArray[i];
 			for(let j=0; j<innerArray.length; j++) {
 				this.context.fillStyle = "orange";
-				if(obstacleArray[i][j]) {
+				if(boardArray[i][j]) {
 					this.context.fillRect(
 						j * this.gridSize, 
 						i * this.gridSize,
@@ -23,8 +27,8 @@ function Maze() {
 	this.renderWinningSquare = () => {
 		this.context.fillStyle = "blue";
 		this.context.fillRect(
-			29 * this.gridSize, 
-			9 * this.gridSize,
+			this.winningSquare.column * this.gridSize, 
+			this.winningSquare.row * this.gridSize,
 			this.gridSize,
 			this.gridSize
 		);
@@ -48,7 +52,7 @@ function Maze() {
 
 		this.drawGrid();
 
-		this.renderObstacles(this.obstacleArray);
+		this.renderObstacles(this.boardArray);
 
 		this.renderWinningSquare();
 
@@ -75,7 +79,8 @@ function Maze() {
 		switch(this.player.spriteSheetY) {
 			case 0:
 				while(this.player.yPosition - moveDistance > 0 && 
-						!this.obstacleArray[this.player.yPosition - moveDistance - 1][this.player.xPosition]) {
+						this.boardArray[this.player.yPosition - moveDistance - 1][this.player.xPosition] !== "obs" &&
+						this.boardArray[this.player.yPosition - moveDistance][this.player.xPosition] !== "win") {
 					moveDistance++;
 				}
 				for(let i=0; i<moveDistance; i++) {
@@ -88,7 +93,8 @@ function Maze() {
 				break;
 			case 1:
 				while(this.player.xPosition + moveDistance < this.widthInTiles - 1 && 
-						!this.obstacleArray[this.player.yPosition][this.player.xPosition + moveDistance + 1]) {
+						this.boardArray[this.player.yPosition][this.player.xPosition + moveDistance + 1] !== "obs" &&
+						this.boardArray[this.player.yPosition][this.player.xPosition + moveDistance] !== "win") {
 					moveDistance++;
 				}
 				for(let i=0; i<moveDistance; i++) {
@@ -101,7 +107,8 @@ function Maze() {
 				break;
 			case 2:
 				while(this.player.yPosition + moveDistance < this.heightInTiles - 1 && 
-						!this.obstacleArray[this.player.yPosition + moveDistance + 1][this.player.xPosition]) {
+						this.boardArray[this.player.yPosition + moveDistance + 1][this.player.xPosition] !== "obs" &&
+						this.boardArray[this.player.yPosition + moveDistance][this.player.xPosition] !== "win") {
 					moveDistance++;
 				}
 				for(let i=0; i<moveDistance; i++) {
@@ -114,7 +121,8 @@ function Maze() {
 				break;
 			case 3:
 				while(this.player.xPosition - moveDistance > 0 && 
-						!this.obstacleArray[this.player.yPosition][this.player.xPosition - moveDistance - 1]) {
+						this.boardArray[this.player.yPosition][this.player.xPosition - moveDistance - 1] !== "obs" &&
+						this.boardArray[this.player.yPosition][this.player.xPosition - moveDistance] !== "win") {
 					moveDistance++;
 				}
 				for(let i=0; i<moveDistance; i++) {
@@ -174,15 +182,17 @@ function Maze() {
 		return true;
 	}
 
-	for(let i=0; i<this.obstacleArray.length; i++) {
-		this.obstacleArray[i] = new Array(this.widthInTiles);
+	for(let i=0; i<this.boardArray.length; i++) {
+		this.boardArray[i] = new Array(this.widthInTiles);
 	}
 
-	this.obstacleArray[11][1] = true;
-	this.obstacleArray[7][10] = true;
-	this.obstacleArray[12][9] = true;
-	this.obstacleArray[8][2] = true;
+	this.boardArray[11][1] = "obs";
+	this.boardArray[7][10] = "obs";
+	this.boardArray[12][9] = "obs";
+	this.boardArray[8][2] = "obs";
+	this.boardArray[this.winningSquare.row][this.winningSquare.column] = "win";
+	console.log(this.boardArray);
 
-	this.renderObstacles(this.obstacleArray);
+	this.renderObstacles(this.boardArray);
 	this.canvasRefresh();
 }
