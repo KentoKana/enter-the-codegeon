@@ -80,7 +80,7 @@ class User
             return $this->password = $password;
         }
     }
-    public function getLoginPass($password)
+    public function getLoginPass()
     {
         return $this->password;
     }

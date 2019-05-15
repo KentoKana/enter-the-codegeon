@@ -8,6 +8,7 @@ if (isset($_SESSION['userid'])) {
     header('location: ./profile.php');
 }
 
+//Registration Controller 
 if (isset($_POST['submitRegister'])) {
 
     // Set User Info
@@ -37,8 +38,8 @@ if (isset($_POST['submitRegister'])) {
     $errorMsg = '';
 
     //Check if user who is about to register already exists in the DB.
-    $registeringUser = $collection->findOne(['username' => $u->getUsername()]);
-    $registeringUserEmail = $collection->findOne(['email' => $u->getEmail()]);
+    $registeringUser = $collection->findOne(['username' => $username]);
+    $registeringUserEmail = $collection->findOne(['email' => $email]);
 
     if ($registeringUser || $registeringUserEmail) {
         if ($registeringUser) {
@@ -49,6 +50,7 @@ if (isset($_POST['submitRegister'])) {
         }
         echo $errorMsg;
     } else {
+        // If no userInfo items return false, write to the database.
         if (array_search(false, $userInfo) === false) {
             $addedUserId = $u->addUser();
             $_SESSION['userid'] = $addedUserId;
@@ -59,6 +61,31 @@ if (isset($_POST['submitRegister'])) {
     }
 }
 
+//Login System Controller
 if (isset($_POST['submitLogin'])) {
+    // Set User Info
+    $u = new User($collection);
+    $u->setUsername($_POST['username']);
+    $u->setLoginPass($_POST['password']);
 
+    // Get User Info
+    $username = $u->getUsername($_POST['username']);
+    $password = $u->getLoginPass($_POST['password']);
+
+    $loggingInUser = $collection->findOne(['username' => $username]);
+    $loggingInUserEmail = $collection->findOne(['email' => $username]);
+
+    // var_dump($loggingInUser['password']);
+    // var_dump($password);
+
+    if (
+        (password_verify($password, $loggingInUser['password']) ||
+            password_verify($password, $loggingInUserEmail['password']))
+        &&
+        $password !== NULL
+    ) {
+        echo 'Login Successful!';
+    } else {
+        //       echo 'no match';
+    }
 }
