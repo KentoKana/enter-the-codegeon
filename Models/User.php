@@ -63,7 +63,8 @@ class User
         ) {
             return false;
         } else {
-            return $this->password = $passConfirm;
+            $hashedPass = password_hash($passConfirm, PASSWORD_DEFAULT);
+            return $this->password = $hashedPass;
         }
     }
     public function getRegisterPassword()

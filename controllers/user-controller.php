@@ -34,10 +34,12 @@ if (isset($_POST['submitRegister'])) {
         $email
     ];
 
+    $errorMsg = '';
+
+    //Check if user who is about to register already exists in the DB.
     $registeringUser = $collection->findOne(['username' => $u->getUsername()]);
     $registeringUserEmail = $collection->findOne(['email' => $u->getEmail()]);
-    // var_dump($registeringUser);
-    $errorMsg = '';
+
     if ($registeringUser || $registeringUserEmail) {
         if ($registeringUser) {
             $errorMsg .= 'User Already Exists. <br>';
@@ -48,12 +50,15 @@ if (isset($_POST['submitRegister'])) {
         echo $errorMsg;
     } else {
         if (array_search(false, $userInfo) === false) {
-            // var_dump(array_search(false, $userInfo));
-
             $addedUserId = $u->addUser();
             $_SESSION['userid'] = $addedUserId;
+            // echo $_POST['password'];
         } else {
             echo 'failed';
         }
     }
+}
+
+if (isset($_POST['submitLogin'])) {
+
 }
