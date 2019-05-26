@@ -6,8 +6,8 @@ function ChallengeCanvas() {
 
 	this.context = this.canvas.getContext('2d');
 
-	// grid will be widthInTiles x heightInTiles
-	this.widthInTiles = 30;
+	// grid will be15idthInTiles x heightInTiles
+	this.widthInTiles = 15;
 	this.heightInTiles = 15;
 
     // method used to draw a 30x15 grid on the canvas of tile size this.canvas.width
