@@ -21,6 +21,7 @@ const pageInit = () => {
 	const undoButton = document.querySelector("#undo-button");
 
 	let moves = [];
+	let listOfMoves = [];
 
 	playingArea.appendChild(mazeCanvas.canvas);
 
@@ -31,7 +32,18 @@ const pageInit = () => {
 	for(let button of moveButtons) {
 		button.addEventListener('mouseup', (e) => {
 			moves.push(e.target.value);
-			moveList.innerHTML = "Move List: " + moves.join(', ');
+			switch(e.target.value) {
+				case "0":
+					listOfMoves.push("Turn left");
+					break;
+				case "1":
+					listOfMoves.push("Move Forward");
+					break;
+				case "2":
+					listOfMoves.push("Turn Right");
+					break;
+			}
+			moveList.innerHTML = "Move List: <br/>" + listOfMoves.join('<br/>');
 		})
 	}
 
@@ -44,12 +56,14 @@ const pageInit = () => {
 			enableButtons([...moveButtons, startButton, undoButton]);
 			moveList.innerHTML = "Move List: ";
 			moves = [];
+			listOfMoves = [];
 		}
 	});
 
 	undoButton.addEventListener('mouseup', () => {
 		moves.pop();
-		moveList.innerHTML = "Move List: " + moves.join(', ');
+		listOfMoves.pop();
+		moveList.innerHTML = "Move List: <br/>" + listOfMoves.join('<br/>');
 	});
 }
 

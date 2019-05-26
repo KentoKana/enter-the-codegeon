@@ -4,7 +4,7 @@ function Maze() {
 	this.moveDelay = 250;
 	this.winningSquare = {
 		row: 9,
-		column: 15
+		column: 13
 	};
 
 	this.renderObstacles = function(boardArray) {
@@ -37,10 +37,11 @@ function Maze() {
 	// method used to resize the canvas and redraw the grid accordingly
 	this.canvasRefresh = function() {
 		if(window.innerWidth < 1200) {
-			this.canvas.width = window.innerWidth - 50;
+			this.canvas.width = window.innerWidth / 2
+			;
 		}
 		else {
-			this.canvas.width = 1200;
+			this.canvas.width = 1200 / 2;
 		}
 
 		this.gridSize = this.canvas.width / this.widthInTiles;
