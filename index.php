@@ -4,16 +4,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once './vendor/autoload.php';
 require_once './controllers/user-controller.php';
-
-$client = new MongoDB\Client(env('MONGO_URI'));
-$googleLoginLink = '';
-
-if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
-  // redirect to profile
-  header('Location: profile.php');
-} else {
-  $googleLoginLink = '<a href="googleauth.php"><img src="images/btn_google_signin_light_normal_web.png" alt="login with google button"/></a>';
-}
 ?>
 <!DOCTYPE html>
 <html lang='en'>
@@ -36,8 +26,11 @@ if (isset($_SESSION['userid']) && !empty($_SESSION['userid'])) {
         <label for="form__password">Password:</label>
         <input name="password" type="password" id="form__password">
       </div>
+      <div style="color: red;">
+        <?= $errorMsg ?>
+      </div>
       <button type="submit" name="submitLogin"> Login</button>
-      <?= $googleLoginLink ?>
+      <a href="googleauth.php"><img src="images/btn_google_signin_light_normal_web.png" alt="login with google button"/></a>
     </form>
   </div>
 </body>

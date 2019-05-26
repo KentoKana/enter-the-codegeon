@@ -1,26 +1,24 @@
 <?php
 session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 require_once './vendor/autoload.php';
-// connect to mongoDB
-$client = new MongoDB\Client(env('MONGO_URI'));
+require_once './controllers/user-controller.php';
+?>
 
-// access the collection
-$collection = $client->codegen->users;
+<!DOCTYPE html>
+<html lang='en'>
 
-if(isset($_GET['logout']))
-{
-  session_destroy();
-  header('Location: index.php');
-}
+<head>
+  <title>Enter the Codegeon</title>
+  <meta charset="utf-8">
+</head>
 
-if(isset($_SESSION['userid']))
-{
-  $id = $_SESSION['userid'];
-  // search the user
-  $user = $collection->findOne(['_id' => new MongoDB\BSON\ObjectId("$id")]);
-  echo "Welcome, " . (string)$user->firstName;
-  echo '<br><a href="profile.php?logout">Log out</a>';
-}
-else {
-  header('Location: index.php');
-}
+<body>
+  <div>
+    <h1>Welcome, <?=(string)$user->firstName?></h1>
+    <br><a href="profile.php?logout">Log out</a>
+  </div>
+</body>
+
+</html>

@@ -2,14 +2,7 @@
 require_once './Models/User.php';
 $client = new MongoDB\Client(env('MONGO_URI'));
 $collection = $client->codegen->users;
-
-// If userid session is set, redirect to profile.php.
-if (isset($_SESSION['userid'])) {
-    header('location: ./profile.php');
-}
-
-
-
+$errorMsg = '';
 //Registration Controller 
 if (isset($_POST['submitRegister'])) {
 
@@ -36,8 +29,6 @@ if (isset($_POST['submitRegister'])) {
         $password,
         $email
     ];
-
-    $errorMsg = '';
 
     //Check if user who is about to register already exists in the DB.
     $registeringUser = $collection->findOne(['username' => $username]);
@@ -78,16 +69,34 @@ if (isset($_POST['submitLogin'])) {
     $loggingInUser = $collection->findOne(['username' => $username]);
     $loggingInUserEmail = $collection->findOne(['email' => $username]);
 
-    if (
-        password_verify($password, $loggingInUserEmail['password']) 
-    ) {
+    // Login Validation Control.
+    if (empty($username) && empty($password)) {
+        $errorMsg = "Please enter your username and password.";
+    } elseif (empty($username)) {
+        $errorMsg = "Please enter your username.";
+    } elseif (empty($password)) {
+        $errorMsg = "Please enter your password.";
+    } elseif (password_verify($password, $loggingInUserEmail['password'])) {
         echo 'Login Successful!';
         $_SESSION['userid'] = $loggingInUserEmail['_id'];
-        
-    } elseif( password_verify($password, $loggingInUser['password'])){
+    } elseif (password_verify($password, $loggingInUser['password'])) {
         echo 'Login Successful!';
         $_SESSION['userid'] = $loggingInUser['_id'];
+        header('location: ./profile.php');
     } else {
-        echo 'no match';
+        $errorMsg = 'Username/E-mail and password does not match.';
+    }
+}
+
+// If userid session is set, redirect to profile.php.
+if (isset($_SESSION['userid'])) {
+
+    $id = $_SESSION['userid'];
+    // search the user
+    $user = $collection->findOne(['_id' => new MongoDB\BSON\ObjectId("$id")]);
+
+    if (isset($_GET['logout'])) {
+        session_destroy();
+        header('Location: index.php');
     }
 }
