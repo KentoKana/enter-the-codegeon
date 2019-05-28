@@ -185,11 +185,10 @@ function Maze() {
 	this.checkWinnable = (boardArray, moveList) => {
 		let result;
 		let newMoveList;
-		let solutions = [];
+		let solution = [];
 
 		if(boardArray[this.player.yPosition][this.player.xPosition] === "win") {
-			solutions.push(moveList);
-			return solutions;
+			return moveList;
 		}
 
 		for(let i=0; i<4; i++) {
@@ -227,7 +226,8 @@ function Maze() {
 						}
 						result = this.checkWinnable(boardArray, newMoveList);
 						if(result) {
-							solutions = [...result, ...solutions];
+							// solutions = [...result, ...solutions];
+							if(solution.length === 0 || result.length < solution.length) { solution = result };
 						}
 						if(boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
 							boardArray[this.player.yPosition][this.player.xPosition] = null;
@@ -251,7 +251,8 @@ function Maze() {
 						}
 						result = this.checkWinnable(boardArray, newMoveList);
 						if(result) {
-							solutions = [...result, ...solutions];
+							// solutions = [...result, ...solutions];
+							if(solution.length === 0 || result.length < solution.length) { solution = result };
 						}
 						if(boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
 							boardArray[this.player.yPosition][this.player.xPosition] = null;
@@ -275,7 +276,8 @@ function Maze() {
 						}
 						result = this.checkWinnable(boardArray, newMoveList);
 						if(result) {
-							solutions = [...result, ...solutions];
+							// solutions = [...result, ...solutions];
+							if(solution.length === 0 || result.length < solution.length) { solution = result };
 						}
 						if(boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
 							boardArray[this.player.yPosition][this.player.xPosition] = null;
@@ -299,7 +301,8 @@ function Maze() {
 						}
 						result = this.checkWinnable(boardArray, newMoveList);
 						if(result) {
-							solutions = [...result, ...solutions];
+							// solutions = [...result, ...solutions];
+							if(solution.length === 0 || result.length < solution.length) { solution = result };
 						}
 						if(boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
 							boardArray[this.player.yPosition][this.player.xPosition] = null;
@@ -313,7 +316,7 @@ function Maze() {
 			this.player.spriteSheetY = (this.player.spriteSheetY + (4-i)) % 4;
 		}
 
-		return solutions.length === 0 ? false : solutions;
+		return solution.length === 0 ? false : solution;
 	};
 
 	for(let i=0; i<this.boardArray.length; i++) {
