@@ -1,7 +1,7 @@
 <?php
   $variables = [
-      'GOOGLE_CLIENT_ID' => '521573106862-n4viuuv5b48h6j9mv48tuk2l6aded2af.apps.googleusercontent.com',
-      'GOOGLE_SECRET' => 'CPtlZyJ4x1DkGCoeH0rgO6CJ',
+      'GOOGLE_CLIENT_ID' => '281449210433-cve7aj83778tpngaqbba84agorpoobsk.apps.googleusercontent.com',
+      'GOOGLE_SECRET' => 'C7V8djklYl2Pf5BMx-aDDV_S',
       'MONGO_URI' => 'mongodb+srv://mok0ng:LSjjYqx0QnyegUYv@codegeon-cluster-vtqvv.mongodb.net/test?retryWrites=true',
   ];
 

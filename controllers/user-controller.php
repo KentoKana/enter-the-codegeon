@@ -5,7 +5,7 @@ $client = new MongoDB\Client(env('MONGO_URI'));
 $collection = $client->codegen->users;
 $errorMsg = '';
 
-//Registration Controller 
+//Registration Controller
 if (isset($_POST['submitRegister'])) {
 
     // Set User Info
@@ -92,7 +92,7 @@ if (isset($_POST['submitLogin'])) {
     if(isset($_SESSION['userid'])){
         header('location: ./profile.php');
     }
-    
+
 }
 
 // If userid session is set, redirect to profile.php.
@@ -103,6 +103,6 @@ if (isset($_SESSION['userid'])) {
 
     if (isset($_POST['logout'])) {
         session_destroy();
-        header('Location: index.php');
+        header('Location: /');
     }
 }

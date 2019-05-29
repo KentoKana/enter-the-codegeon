@@ -22,7 +22,7 @@ else
   $provider = new Google([
       'clientId'     => env('GOOGLE_CLIENT_ID'),
       'clientSecret' => env('GOOGLE_SECRET'),
-      'redirectUri'  => 'http://localhost/enter-the-codegeon/googleauth.php'
+      'redirectUri'  => 'http://localhost/googleauth.php'
   ]);
 
   if (!empty($_GET['error'])) {
@@ -80,7 +80,7 @@ else
         }
       }
       // redirect the user
-      header('Location: profile.php');
+      header('Location: profile');
     }
   }
 }
