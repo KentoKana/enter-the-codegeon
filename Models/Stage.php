@@ -51,10 +51,11 @@ class Stage
     }
 
     public function setPickedStage($pickedStage) {
-        return $this->pickedStage = $pickedStage;
+        $this->pickedStage = $pickedStage;
     }
-    public function getPickedStage() {
-        return $this->collection->findOne([$this->pickedStage]);
+    public function getPickedStage($pickedStage) {
+        $this->pickedStage = $pickedStage;
+        $this->collection->findOne(['_id'=>$pickedStage]);
     }
 
 
