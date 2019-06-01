@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +14,7 @@
   </div>
   <div class="page-wrapper flex-container">
     <div id="playing-area"></div>
-      
+
     <div id="coding-area">
       <h2>Options</h2>
       <div id="builder-options">
@@ -41,10 +39,9 @@
       </div>
     </div>
   </div>
-  
-  <script src="scripts/player.js" ></script>
-  <script src="scripts/canvas.js" ></script>
-  <script src="scripts/maze-builder.js" ></script>
-  <script src="scripts/maze-builder-main.js" ></script>
+  <script src="public/scripts/player.js" ></script>
+  <script src="public/scripts/canvas.js" ></script>
+  <script src="public/scripts/maze-builder.js" ></script>
+  <script src="public/scripts/maze-builder-main.js" ></script>
 </body>
 </html>
