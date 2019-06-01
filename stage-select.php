@@ -20,10 +20,11 @@ require_once './controllers/stage-controller.php';
     <form action="" method="POST">
       <?php
       // Iterate through all stage items.
+
       foreach ($allStages as $stage) {
         ?>
-        <input type="hidden" value="<?=$stage['_id'];?>" name="stageId" />
-        <button type="submit" name="chooseChallenge"> <?=$stage['stageName'];?> </button>
+        <input type="hidden" value="<?= $stage['_id']; ?>" name="stageId" />
+        <button type="submit" name="chooseChallenge"> <?= $stage['stageName']; ?> </button>
       <?php
     }
     ?>
@@ -38,7 +39,9 @@ require_once './controllers/stage-controller.php';
         //i.e. x1,y1;x2,y2;x3,y3;
         $obs_coords = '';
 
-        // echo $collection->findOne(['_id'=>$_POST['stageId']]);
+        // THIS IS NULL FOR WHATEVER REASON.
+        $pickedStage = $collection->findOne(['_id' => $_POST['stageId']]);
+        
         foreach ($pickedStage['obstacles'] as $obstacle) {
           for ($i = 0; $i < count($obstacle); $i++) {
             if ($i % 2 !== 0) {
