@@ -88,7 +88,7 @@ const pageInit = () => {
 			}
 		}
 
-		xhr.open('POST', 'controllers/stage-controller.php');
+		xhr.open('POST', 'controllers/add-stage.php');
 		xhr.setRequestHeader('Content-Type', 'application/json');
 		xhr.send(JSON.stringify(
 			{
