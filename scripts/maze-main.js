@@ -53,7 +53,7 @@ const pageInit = () => {
 		let isDone = await mazeCanvas.movePlayer(moves);
 
 		if(isDone) {
-			enableButtons([...moveButtons, startButton, undoButton]);
+			// enableButtons([...moveButtons, startButton, undoButton]);
 			moveList.innerHTML = "Move List: ";
 			moves = [];
 			listOfMoves = [];
