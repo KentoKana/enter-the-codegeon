@@ -35,10 +35,10 @@ function ChallengeCanvas() {
 	// method used to resize the canvas and redraw the grid accordingly
 	this.canvasRefresh = function() {
 		if(window.innerWidth < 1200) {
-			this.canvas.width = window.innerWidth - 50;
+			this.canvas.width = window.innerWidth / 2;
 		}
 		else {
-			this.canvas.width = 1200;
+			this.canvas.width = 1200 / 2;
 		}
 
 		this.gridSize = this.canvas.width / this.widthInTiles;
@@ -55,11 +55,12 @@ function ChallengeCanvas() {
 		}
 	};
 
-	this.initializePlayer = function() {
-		this.player = new Player(this.widthInTiles, this.heightInTiles, 2, 3);
-		this.renderPlayer();
+	// Creates a new player at xLocation, yLocation
+	this.initializePlayer = function(xLocation=0, yLocation=0) {
+		this.player = new Player(this.widthInTiles, this.heightInTiles, xLocation, yLocation);
 	};
 
+	// Render the player on the canvas
 	this.renderPlayer = function() {
 		this.context.drawImage(
 			this.player.playerImage,
@@ -74,14 +75,11 @@ function ChallengeCanvas() {
 		);
 	}
 
+	// Move the player in the direction specified
 	this.movePlayer = function(direction) {
 		this.player.move(direction);
 		this.canvasRefresh();
 	}
 
 	this.canvasRefresh();
-	this.initializePlayer();
-	this.player.playerImage.onload = () => {
-		this.renderPlayer();
-	}
 }
