@@ -15,6 +15,7 @@ let enableButtons = (buttons) => {
 const pageInit = () => {
 	const messages = document.querySelector('#message-area');
 	const playingArea = document.querySelector('#playing-area');
+	const nameField = document.querySelector('#stage-name');
 	const checkButton = document.querySelector('#check-solution');
 	const submitButton = document.querySelector('#submit-stage');
 	const mazeCanvas = new MazeBuilder();
@@ -76,28 +77,35 @@ const pageInit = () => {
 	submitButton.addEventListener('mouseup', () => {
 		let xhr = new XMLHttpRequest();
 
-		xhr.onreadystatechange = function(){
-			if (xhr.readyState === 4) {
-				if (xhr.status === 200) {
-					alert(xhr.responseText);
-					window.location = "profile.php";
-				}
-				else {
-					alert("Connection was unsuccessful");
-				}
-			}
+		if(nameField.value === '') {
+			messages.innerHTML = 'Please enter a stage name!';
+			messages.style.color = 'red';
 		}
-
-		xhr.open('POST', 'controllers/add-stage.php');
-		xhr.setRequestHeader('Content-Type', 'application/json');
-		xhr.send(JSON.stringify(
-			{
-				startPosition: [mazeCanvas.player.yPosition, mazeCanvas.player.xPosition], 
-				goalPosition: [mazeCanvas.winningSquare.row, mazeCanvas.winningSquare.column],
-				obstacles: mazeCanvas.getObstacles(),
-				solution: solution
+		else {
+			xhr.onreadystatechange = function(){
+				if (xhr.readyState === 4) {
+					if (xhr.status === 200) {
+						alert(xhr.responseText);
+						window.location = "profile.php";
+					}
+					else {
+						alert("Connection was unsuccessful");
+					}
+				}
 			}
-		));
+
+			xhr.open('POST', 'controllers/add-stage.php');
+			xhr.setRequestHeader('Content-Type', 'application/json');
+			xhr.send(JSON.stringify(
+				{
+					stageName: nameField.value,
+					startPosition: [mazeCanvas.player.yPosition, mazeCanvas.player.xPosition], 
+					goalPosition: [mazeCanvas.winningSquare.row, mazeCanvas.winningSquare.column],
+					obstacles: mazeCanvas.getObstacles(),
+					solution: solution
+				}
+			));
+		}
 	});
 
 	window.onresize = () => {
