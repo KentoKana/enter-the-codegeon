@@ -23,6 +23,11 @@
       <h2>Options</h2>
       <div id="builder-options">
         <div class="option-row">
+          <label for="stage-name">Stage Name: </label>
+          <input type="text" id="stage-name" placeholder="Enter a stage name">
+        </div>
+
+        <div class="option-row">
           <input type="radio" id="player-option" name="builder_options" value="0">
           <span>Goal</span>
         </div>
