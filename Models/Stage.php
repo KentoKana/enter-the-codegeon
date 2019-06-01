@@ -57,5 +57,7 @@ class Stage
         return $this->collection->findOne([$this->pickedStage]);
     }
 
-
+    public function addStage($stageInfo) {
+        return $this->collection->insertOne($stageInfo);
+    }
 }
