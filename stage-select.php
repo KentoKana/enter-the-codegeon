@@ -17,10 +17,18 @@ require_once './controllers/stage-controller.php';
 <body>
   <div>
     <h1>Select Your Challenge!</h1>
-    <?php
-
+    <form action="" method="POST">
+      <?php
+      // Iterate through all stage items.
+      foreach ($allStages as $stage) {
+        ?>
+        <input type="hidden" value="<?= $stage['stageName']; ?>" name="stageName"/>
+        <button type="submit" name="chooseChallenge"> <?= $stage['stageName']; ?> </button>
+      <?php
+    }
     ?>
-    
+    </form>
+
 
   </div>
 </body>

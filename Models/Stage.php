@@ -8,6 +8,7 @@ class Stage
     private $goalPosition;
     private $obstacles;
     private $pickedStage;
+    private $allStages;
 
     // Constructor
     public function __construct($collection)
@@ -45,7 +46,17 @@ class Stage
     }
     
     // Read function
+    public function getAllStages(){
+        return $this->collection->find();
+    }
+
+    public function generateStageSelector(){
+
+    }
+
     public function getStage($pickedStage) {
         return $this->pickedStage = $pickedStage;
     }
+
+
 }
