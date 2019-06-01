@@ -1,4 +1,6 @@
-
+<?php
+  
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,8 +38,9 @@
           <input type="radio" id="obstacle-option" name="builder_options" value="3">
           <span>Remove</span>
         </div>
-
-        <button id="submit-stage">Build Stage!</button>
+        
+        <button id="check-solution">Check for Solution</button>
+        <button id="submit-stage" disabled>Build Stage!</button>
       </div>
     </div>
   </div>
