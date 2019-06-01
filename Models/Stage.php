@@ -50,12 +50,11 @@ class Stage
         return $this->collection->find();
     }
 
-    public function generateStageSelector(){
-
-    }
-
-    public function getStage($pickedStage) {
+    public function setPickedStage($pickedStage) {
         return $this->pickedStage = $pickedStage;
+    }
+    public function getPickedStage() {
+        return $this->collection->findOne([$this->pickedStage]);
     }
 
 
