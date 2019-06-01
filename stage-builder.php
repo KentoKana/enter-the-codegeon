@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+<?php
+  
+?>
+
+>>>>>>> aa1962b71efa4bf71e608c3538e63555921dde3a
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +26,11 @@
       <h2>Options</h2>
       <div id="builder-options">
         <div class="option-row">
+          <label for="stage-name">Stage Name: </label>
+          <input type="text" id="stage-name" placeholder="Enter a stage name">
+        </div>
+
+        <div class="option-row">
           <input type="radio" id="player-option" name="builder_options" value="0">
           <span>Goal</span>
         </div>
@@ -34,8 +46,9 @@
           <input type="radio" id="obstacle-option" name="builder_options" value="3">
           <span>Remove</span>
         </div>
-
-        <button id="submit-stage">Build Stage!</button>
+        
+        <button id="check-solution">Check for Solution</button>
+        <button id="submit-stage" disabled>Build Stage!</button>
       </div>
     </div>
   </div>

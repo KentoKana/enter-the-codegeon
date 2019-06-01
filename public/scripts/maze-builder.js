@@ -83,18 +83,18 @@ function MazeBuilder() {
 			let moveDistance = 0;
 			switch(i) {
 				case 0:
-					newMoveList = [...moveList, 1];
+					newMoveList = [...moveList, 'Move Forward'];
 					break;
 				case 1:
-					newMoveList = [...moveList, 2, 1];
+					newMoveList = [...moveList, 'Turn Right', 'Move Forward'];
 					this.player.spriteSheetY = (this.player.spriteSheetY + i) % 4;
 					break;
 				case 2:
-					newMoveList = [...moveList, 2, 2, 1];
+					newMoveList = [...moveList, 'Turn Right', 'Turn Right', 'Move Forward'];
 					this.player.spriteSheetY = (this.player.spriteSheetY + i) % 4;
 					break;
 				case 3:
-					newMoveList = [...moveList, 0, 1];
+					newMoveList = [...moveList, 'Turn Left', 'Move Forward'];
 					this.player.spriteSheetY = (this.player.spriteSheetY + i) % 4;
 					break;
 			}
@@ -203,6 +203,20 @@ function MazeBuilder() {
 		return solution.length === 0 ? false : solution;
 	};
 
+	this.getObstacles = () => {
+		let obstacles = [];
+
+		for(let i=0; i<this.boardArray.length; i++) {
+			for(let j=0; j<this.boardArray[i].length; j++) {
+				if(this.boardArray[i][j] === "obs") {
+					obstacles.push([i,j]);
+				}
+			}
+		}
+
+		return obstacles;
+	};
+
 	this.checkSubmittable = () => {
 		return this.hasPlayer && this.hasGoal;
 	};
@@ -211,11 +225,14 @@ function MazeBuilder() {
 		let gridX = Math.floor(hoveredX / this.gridSize);
 		let gridY = Math.floor(hoveredY / this.gridSize);
 
+		// Removing objects from the board
 		if(objectType === "3") {
+			// Nothing to remove
 			if(!this.boardArray[gridY][gridX]) {
 				messages.innerHTML = "Nothing to remove here!";
 				messages.style.color = "red";
 			}
+			// Removing the goal square
 			else if(this.boardArray[gridY][gridX] === "win") {
 				this.boardArray[gridY][gridX] = null;
 				this.winningSquare = null;
@@ -224,6 +241,7 @@ function MazeBuilder() {
 				messages.style.color = "green";
 				this.canvasRefresh();
 			}
+			// Removing the player square
 			else if(this.boardArray[gridY][gridX] === "player") {
 				this.boardArray[gridY][gridX] = null;
 				this.player = null;
@@ -232,6 +250,7 @@ function MazeBuilder() {
 				messages.style.color = "green";
 				this.canvasRefresh();
 			}
+			// Removing Obstacles
 			else {
 				this.boardArray[gridY][gridX] = null;
 				messages.innerHTML = "Obstacle has been removed!";
@@ -239,12 +258,15 @@ function MazeBuilder() {
 				this.canvasRefresh();
 			}
 		}
+		// Trying to add to a spot that's already taken
 		else if(this.boardArray[gridY][gridX]) {
 			messages.innerHTML = "This spot is already taken";
 			messages.style.color = "red";
 		}
+		// Adding to an empty slot
 		else {
 			switch(objectType) {
+				// Adding the goal square
 				case "0":
 					if(this.winningSquare) this.boardArray[this.winningSquare.row][this.winningSquare.column] = null;
 					this.winningSquare = {
@@ -257,6 +279,7 @@ function MazeBuilder() {
 					this.hasGoal = true;
 					this.canvasRefresh();
 					break;
+				// Adding the player starting spot
 				case "1":
 					if(this.player) this.boardArray[this.player.yPosition][this.player.xPosition] = null;
 					this.initializePlayer(gridX, gridY);
@@ -266,6 +289,7 @@ function MazeBuilder() {
 					this.canvasRefresh();
 					this.hasPlayer = true;
 					break;
+				// Adding an obstacle
 				case "2":
 					this.boardArray[gridY][gridX] = "obs";
 					messages.innerHTML = "Obstacle has been added!";
