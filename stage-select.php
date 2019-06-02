@@ -19,7 +19,6 @@ require_once './controllers/stage-controller.php';
     <form action="" method="POST">
       <?php
       // Iterate through all stage items.
-
       foreach ($allStages as $stage) {
         ?>
         <button type="submit" name="stageId" value="<?= $stage['_id']; ?>"> <?= $stage['stageName']; ?> </button>

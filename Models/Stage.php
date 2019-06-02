@@ -67,11 +67,11 @@ class Stage
     {
         // Loop through array of coords (can retrieve startPosition and goalPosition)
         // Display coords as strings
-        //i.e. x1,y1;
+        //i.e. x1,y1
         $coord = '';
         for ($i = 0; $i < count($this->pickedStage[$coordType]); $i++) {
             if ($i % 2 !== 0) {
-                $coord .= $this->pickedStage[$coordType][$i] . ';';
+                $coord .= $this->pickedStage[$coordType][$i];
             } else {
                 $coord .= $this->pickedStage[$coordType][$i] . ',';
             }

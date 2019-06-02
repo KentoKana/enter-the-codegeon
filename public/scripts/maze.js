@@ -1,30 +1,54 @@
+// DOM queries
+const startCoord = document.getElementById('startCoord');
+const goalCoord = document.getElementById('goalCoord');
+let obsCoords = document.getElementById('obsCoords');
+
+const startCoordArr = startCoord.value.split(',');
+const goalCoordArr = goalCoord.value.split(',');
+
+obsCoords = obsCoords.value.split(';');
+
+// Push obstacle coords in this format:
+/*
+[
+	[x1,y1],
+	[x2,y2],...
+]
+*/
+let obsCoordsArr = [];
+for(i=0;i<obsCoords.length;i++){
+	obsCoordsArr.push(obsCoords[i].split(','));
+}
+console.log(obsCoordsArr);
+
 function Maze() {
 	ChallengeCanvas.call(this);
-
-	this.initializePlayer(2, 3);
+	// Changed to look at start coord retrieved from Session.
+	this.initializePlayer(startCoordArr[1], startCoordArr[0]);
 	this.player.playerImage.onload = () => {
 		this.renderPlayer();
 	}
 
 	this.boardArray = new Array(this.heightInTiles);
-	for(let i=0; i<this.boardArray.length; i++) {
+	for (let i = 0; i < this.boardArray.length; i++) {
 		this.boardArray[i] = new Array(this.widthInTiles);
 	}
 
 	this.moveDelay = 250;
 	this.winningSquare = {
-		row: 9,
-		column: 13
+		// Changed to look at goal coord retrieved from Session.
+		row: goalCoordArr[0],
+		column: goalCoordArr[1],
 	};
 
-	this.renderObstacles = function(boardArray) {
-		for(let i=0; i<boardArray.length; i++) {
+	this.renderObstacles = function (boardArray) {
+		for (let i = 0; i < boardArray.length; i++) {
 			let innerArray = boardArray[i];
-			for(let j=0; j<innerArray.length; j++) {
+			for (let j = 0; j < innerArray.length; j++) {
 				this.context.fillStyle = "orange";
-				if(boardArray[i][j] === "obs") {
+				if (boardArray[i][j] === "obs") {
 					this.context.fillRect(
-						j * this.gridSize, 
+						j * this.gridSize,
 						i * this.gridSize,
 						this.gridSize,
 						this.gridSize
@@ -37,7 +61,7 @@ function Maze() {
 	this.renderWinningSquare = () => {
 		this.context.fillStyle = "blue";
 		this.context.fillRect(
-			this.winningSquare.column * this.gridSize, 
+			this.winningSquare.column * this.gridSize,
 			this.winningSquare.row * this.gridSize,
 			this.gridSize,
 			this.gridSize
@@ -45,8 +69,8 @@ function Maze() {
 	};
 
 	// method used to resize the canvas and redraw the grid accordingly
-	this.canvasRefresh = function() {
-		if(window.innerWidth < 1200) {
+	this.canvasRefresh = function () {
+		if (window.innerWidth < 1200) {
 			this.canvas.width = window.innerWidth / 2;
 		}
 		else {
@@ -54,7 +78,7 @@ function Maze() {
 		}
 
 		this.gridSize = this.canvas.width / this.widthInTiles;
-		if(this.player) {
+		if (this.player) {
 			this.player.gridSize = this.gridSize;
 		}
 
@@ -66,7 +90,7 @@ function Maze() {
 
 		this.renderWinningSquare();
 
-		if(this.player){
+		if (this.player) {
 			this.renderPlayer();
 		}
 	};
@@ -85,14 +109,14 @@ function Maze() {
 	this.player.move = async () => {
 		let moveDistance = 0;
 
-		switch(this.player.spriteSheetY) {
+		switch (this.player.spriteSheetY) {
 			case 0:
-				while(this.player.yPosition - moveDistance > 0 && 
-						this.boardArray[this.player.yPosition - moveDistance - 1][this.player.xPosition] !== "obs" &&
-						this.boardArray[this.player.yPosition - moveDistance][this.player.xPosition] !== "win") {
+				while (this.player.yPosition - moveDistance > 0 &&
+					this.boardArray[this.player.yPosition - moveDistance - 1][this.player.xPosition] !== "obs" &&
+					this.boardArray[this.player.yPosition - moveDistance][this.player.xPosition] !== "win") {
 					moveDistance++;
 				}
-				for(let i=0; i<moveDistance; i++) {
+				for (let i = 0; i < moveDistance; i++) {
 					setTimeout(() => {
 						this.moveFrame();
 						this.player.yPosition--;
@@ -101,12 +125,12 @@ function Maze() {
 				}
 				break;
 			case 1:
-				while(this.player.xPosition + moveDistance < this.widthInTiles - 1 && 
-						this.boardArray[this.player.yPosition][this.player.xPosition + moveDistance + 1] !== "obs" &&
-						this.boardArray[this.player.yPosition][this.player.xPosition + moveDistance] !== "win") {
+				while (this.player.xPosition + moveDistance < this.widthInTiles - 1 &&
+					this.boardArray[this.player.yPosition][this.player.xPosition + moveDistance + 1] !== "obs" &&
+					this.boardArray[this.player.yPosition][this.player.xPosition + moveDistance] !== "win") {
 					moveDistance++;
 				}
-				for(let i=0; i<moveDistance; i++) {
+				for (let i = 0; i < moveDistance; i++) {
 					setTimeout(() => {
 						this.moveFrame();
 						this.player.xPosition++;
@@ -115,12 +139,12 @@ function Maze() {
 				}
 				break;
 			case 2:
-				while(this.player.yPosition + moveDistance < this.heightInTiles - 1 && 
-						this.boardArray[this.player.yPosition + moveDistance + 1][this.player.xPosition] !== "obs" &&
-						this.boardArray[this.player.yPosition + moveDistance][this.player.xPosition] !== "win") {
+				while (this.player.yPosition + moveDistance < this.heightInTiles - 1 &&
+					this.boardArray[this.player.yPosition + moveDistance + 1][this.player.xPosition] !== "obs" &&
+					this.boardArray[this.player.yPosition + moveDistance][this.player.xPosition] !== "win") {
 					moveDistance++;
 				}
-				for(let i=0; i<moveDistance; i++) {
+				for (let i = 0; i < moveDistance; i++) {
 					setTimeout(() => {
 						this.moveFrame();
 						this.player.yPosition++;
@@ -129,12 +153,12 @@ function Maze() {
 				}
 				break;
 			case 3:
-				while(this.player.xPosition - moveDistance > 0 && 
-						this.boardArray[this.player.yPosition][this.player.xPosition - moveDistance - 1] !== "obs" &&
-						this.boardArray[this.player.yPosition][this.player.xPosition - moveDistance] !== "win") {
+				while (this.player.xPosition - moveDistance > 0 &&
+					this.boardArray[this.player.yPosition][this.player.xPosition - moveDistance - 1] !== "obs" &&
+					this.boardArray[this.player.yPosition][this.player.xPosition - moveDistance] !== "win") {
 					moveDistance++;
 				}
-				for(let i=0; i<moveDistance; i++) {
+				for (let i = 0; i < moveDistance; i++) {
 					setTimeout(() => {
 						this.moveFrame();
 						this.player.xPosition--;
@@ -145,36 +169,36 @@ function Maze() {
 		}
 
 		return new Promise((resolve, reject) => {
-			setTimeout(()=>{resolve(true)}, this.moveDelay * moveDistance);
+			setTimeout(() => { resolve(true) }, this.moveDelay * moveDistance);
 		});
 	};
 
 	// Rotate player left (1) or right (0)
 	this.rotatePlayer = async (direction) => {
 		// turn clockwise
-		if(direction === 0) {
+		if (direction === 0) {
 			this.player.spriteSheetY = (this.player.spriteSheetY + 1) % 4;
 		}
 		// turn counterclockwise
-		if(direction === 1) {
+		if (direction === 1) {
 			this.player.spriteSheetY--;
-			if(this.player.spriteSheetY === -1) {
+			if (this.player.spriteSheetY === -1) {
 				this.player.spriteSheetY = 3;
 			}
 		}
-		
+
 		this.canvasRefresh();
 
 		return new Promise((resolve, reject) => {
-			setTimeout(()=>{resolve(true)}, this.moveDelay);
+			setTimeout(() => { resolve(true) }, this.moveDelay);
 		});
 	};
 
 	// Move player by executing a list of moves in a sequence
 	this.movePlayer = async (moveList) => {
 		let moveArray = [];
-		
-		for(let move of moveList) {
+
+		for (let move of moveList) {
 			switch (move) {
 				case "0":
 					await this.rotatePlayer(1);
