@@ -9,7 +9,7 @@ use League\OAuth2\Client\Grant\RefreshToken;
 // check if user is logged in
 if(isset($_SESSION['userid']))
 {
-  header('Location: profile.php');
+  header('Location: profile');
 }
 else
 {
@@ -22,7 +22,7 @@ else
   $provider = new Google([
       'clientId'     => env('GOOGLE_CLIENT_ID'),
       'clientSecret' => env('GOOGLE_SECRET'),
-      'redirectUri'  => 'http://localhost/googleauth.php'
+      'redirectUri'  => 'http://localhost/enter-the-codegeon/googleauth.php'
   ]);
 
   if (!empty($_GET['error'])) {

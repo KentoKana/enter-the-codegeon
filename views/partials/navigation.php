@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="flex-wrapper">
       <div id="logo">
-        <img src="public/images/logo.png" alt="">
+       <a href="./"><img src="public/images/logo.png" alt=""></a>
       </div>
       <nav id="menu">
         <?php if(isset($_SESSION['userid'])):?>
