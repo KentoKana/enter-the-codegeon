@@ -3,6 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once './vendor/autoload.php';
 require_once './controllers/user-controller.php';
+require_once './controllers/stage-controller.php';
 
 $vars = array_values(array_filter(explode('/', $_SERVER['REQUEST_URI'])));
 

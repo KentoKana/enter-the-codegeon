@@ -29,7 +29,7 @@ if(!isset($_SESSION['userid'])){
      ];
 
      foreach($testArr as $item) {
-       echo "<div>$item</div>";
+       echo "<div class='achievements__item'>$item</div>";
      }
    ?>
 

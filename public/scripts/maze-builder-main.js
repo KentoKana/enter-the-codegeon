@@ -29,7 +29,7 @@ const pageInit = () => {
 		let boundingRect = mazeCanvas.canvas.getBoundingClientRect();
 		let currXSquare = e.clientX - boundingRect.left;
 		let currYSquare = e.clientY - boundingRect.top;
-		
+
 		mazeCanvas.updateGrid(currXSquare, currYSquare);
 	});
 
@@ -37,7 +37,7 @@ const pageInit = () => {
 		let boundingRect = mazeCanvas.canvas.getBoundingClientRect();
 		let currXSquare = e.clientX - boundingRect.left;
 		let currYSquare = e.clientY - boundingRect.top;
-		
+
 		let selectedOpt = document.querySelector('input[name=builder_options]:checked');
 
 		if(!selectedOpt) {
@@ -56,7 +56,7 @@ const pageInit = () => {
 		if(mazeCanvas.checkSubmittable()) {
 			let winnable = mazeCanvas.checkWinnable(mazeCanvas.boardArray, []);
 			if(winnable) {
-				messages.innerHTML = 'Your stage is solvable. Solution is: ' + winnable.join(', ') + 
+				messages.innerHTML = 'Your stage is solvable. Solution is: ' + winnable.join(', ') +
 						'. You can submit your stage now.';
 				solution = winnable;
 				messages.style.color = 'blue';
@@ -86,7 +86,7 @@ const pageInit = () => {
 				if (xhr.readyState === 4) {
 					if (xhr.status === 200) {
 						alert(xhr.responseText);
-						window.location = "profile.php";
+						window.location = "profile";
 					}
 					else {
 						alert("Connection was unsuccessful");
@@ -99,7 +99,7 @@ const pageInit = () => {
 			xhr.send(JSON.stringify(
 				{
 					stageName: nameField.value,
-					startPosition: [mazeCanvas.player.yPosition, mazeCanvas.player.xPosition], 
+					startPosition: [mazeCanvas.player.yPosition, mazeCanvas.player.xPosition],
 					goalPosition: [mazeCanvas.winningSquare.row, mazeCanvas.winningSquare.column],
 					obstacles: mazeCanvas.getObstacles(),
 					solution: solution

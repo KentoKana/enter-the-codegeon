@@ -2,6 +2,16 @@
   Declarations
 **/
 /* colors */
+/* extender */
+.registration__form,
+.login__form {
+  padding: 20px;
+  border: 3px solid #534B3C;
+  border-radius: 10px;
+  color: #534B3C;
+  background-color: #E8AE68;
+}
+
 /* fonts */
 @fontface {
   font-family: "Impact";
@@ -98,19 +108,17 @@ h1, h2, h3, h4, h5, h6 {
 /**
   Body
 **/
+.registration__form,
 .login__form {
   width: 400px;
   margin: 0 auto;
-  padding: 20px;
-  border: 3px solid #534B3C;
-  border-radius: 10px;
-  color: #534B3C;
-  background-color: #E8AE68;
 }
+.registration__form h2,
 .login__form h2 {
   font-size: 2em;
   letter-spacing: 1px;
 }
+.registration__form button,
 .login__form button {
   background-color: #534B3C;
   color: #fff;
@@ -139,6 +147,11 @@ div[class^=profile] {
   padding: 20px 0;
 }
 
+.achievements__item {
+  display: inline-flex;
+  padding: 20px;
+}
+
 #playing-area {
   display: flex;
   justify-content: center;
@@ -165,10 +178,13 @@ div[class^=profile] {
   font-family: Impact;
   font-weight: inherit;
   font-size: 24px;
+  display: inline-flex;
+  align-items: center;
 }
 #coding-area .action-buttons:before, #coding-area .action-buttons:after,
 #coding-area .movement-buttons:before,
 #coding-area .movement-buttons:after {
+  display: inline-flex;
   font-family: MixDirections;
   vertical-align: middle;
   font-size: 2.8em;

@@ -11,6 +11,17 @@ $flesh: #E3A587;
 $red: #DB5A42;
 $max-width: 1200px;
 $body-font: 'Ubuntu', sans-serif;
+$heading-font: Impact;
+
+/* extender */
+
+%with-bg_border {
+  padding: 20px;
+  border: 3px solid $charcoal;
+  border-radius: 10px;
+  color: $charcoal;
+  background-color: $alt-color;
+}
 
 /* fonts */
 @fontface {
@@ -61,7 +72,7 @@ a {
 }
 
 h1,h2,h3,h4,h5,h6 {
-  font-family: Impact;
+  font-family: $heading-font;
   font-weight: inherit;
 }
 
@@ -92,7 +103,7 @@ h1,h2,h3,h4,h5,h6 {
     display: inline-flex;
     margin: 0 20px;
     a {
-      font-family: Impact;
+      font-family: $heading-font;
       color: #fff;
       font-size: 24px;
       text-decoration: none;
@@ -111,15 +122,11 @@ h1,h2,h3,h4,h5,h6 {
 /**
   Body
 **/
-
+.registration__form,
 .login__form {
   width: 400px;
   margin: 0 auto;
-  padding: 20px;
-  border: 3px solid $charcoal;
-  border-radius: 10px;
-  color: $charcoal;
-  background-color: $alt-color;
+  @extend %with-bg_border;
   h2{
     font-size: 2em;
     letter-spacing: 1px;
@@ -154,6 +161,11 @@ div[class^="profile"] {
   padding: 20px 0;
 }
 
+.achievements__item {
+  display: inline-flex;
+  padding: 20px;
+}
+
 #playing-area {
   display: flex;
   justify-content: center;
@@ -178,11 +190,15 @@ div[class^="profile"] {
     border-radius: 10px;
     background-color: $alt-color;
     color: $red;
-    font-family: Impact;
+    font-family: $heading-font;
     font-weight: inherit;
     font-size: 24px;
+    display: inline-flex;
+    align-items: center;
+
     &:before,
     &:after {
+      display: inline-flex;
       font-family: MixDirections;
       vertical-align: middle;
       font-size: 2.8em;

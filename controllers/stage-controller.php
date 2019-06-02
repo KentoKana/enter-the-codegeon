@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 require_once './Models/Stage.php';
 
 $input = file_get_contents("php://input");
