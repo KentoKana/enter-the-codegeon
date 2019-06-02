@@ -8,7 +8,7 @@ require_once './controllers/game-controller.php';
 
 
 $vars = array_values(array_filter(explode('/', $_SERVER['REQUEST_URI'])));
-if($vars[0]==='enter-the-codegeon') array_shift($vars);
+if(isset($vars[0]) && $vars[0]==='enter-the-codegeon') array_shift($vars);
 
 if(count($vars) % 2 == 1)
 {

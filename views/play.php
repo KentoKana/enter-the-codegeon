@@ -6,10 +6,10 @@ require_once 'partials/navigation.php';
 // }
 ?>
 <!-- Retrieve Coordinates to generate challenge -->
-<input type="hidden" id="stageId" value="<?=$_SESSION['stageId']?>">
-<input type="hidden" id="startCoord" value="<?=$_SESSION['startCoord']?>">
-<input type="hidden" id="goalCoord" value="<?=$_SESSION['goalCoord']?>">
-<input type="hidden" id="obsCoords" value="<?=$_SESSION['obsCoords']?>">
+<input type="hidden" id="stageId" class="stage-info" value="<?=$_SESSION['stageId']?>">
+<input type="hidden" id="startCoord" class="stage-info" value="<?=$_SESSION['startCoord']?>">
+<input type="hidden" id="goalCoord" class="stage-info" value="<?=$_SESSION['goalCoord']?>">
+<input type="hidden" id="obsCoords" class="stage-info" value="<?=$_SESSION['obsCoords']?>">
   <header class="block">
    <h1 id="score">Score:</h1>
   </header>
