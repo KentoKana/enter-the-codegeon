@@ -59,7 +59,7 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: Impact;
+  font-family: "Impact";
   font-weight: inherit;
 }
 
@@ -91,7 +91,7 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 20px;
 }
 #menu ul li a {
-  font-family: Impact;
+  font-family: "Impact";
   color: #fff;
   font-size: 24px;
   text-decoration: none;
@@ -181,7 +181,7 @@ div[class^=profile] {
   border-radius: 10px;
   background-color: #E8AE68;
   color: #DB5A42;
-  font-family: Impact;
+  font-family: "Impact";
   font-weight: inherit;
   font-size: 24px;
   display: inline-flex;
@@ -191,7 +191,7 @@ div[class^=profile] {
 #coding-area .movement-buttons:before,
 #coding-area .movement-buttons:after {
   display: inline-flex;
-  font-family: MixDirections;
+  font-family: "MixDirections";
   vertical-align: middle;
   font-size: 2.8em;
 }
