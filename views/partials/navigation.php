@@ -9,7 +9,7 @@
         <ul>
           <li><a href="./">Home</a></li>
           <li><a href="./profile">Profile</a></li>
-          <li><a href="./play">Play</a></li>
+          <li><a href="./stage-picker">Play</a></li>
           <li><a href="./logout">Logout</a></li>
         </ul>
       <?php else: ?>
