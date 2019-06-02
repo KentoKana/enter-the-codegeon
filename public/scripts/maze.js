@@ -1,33 +1,5 @@
-// DOM queries
-const startCoord = document.getElementById('startCoord');
-const goalCoord = document.getElementById('goalCoord');
-let obsCoords = document.getElementById('obsCoords');
-
-const startCoordArr = startCoord.value.split(',');
-const goalCoordArr = goalCoord.value.split(',');
-
-obsCoords = obsCoords.value.split(';');
-
-// Push obstacle coords in this format:
-/*
-[
-	[x1,y1],
-	[x2,y2],...
-]
-*/
-let obsCoordsArr = [];
-for(i=0;i<obsCoords.length;i++){
-	obsCoordsArr.push(obsCoords[i].split(','));
-}
-console.log(obsCoordsArr);
-
 function Maze() {
 	ChallengeCanvas.call(this);
-	// Changed to look at start coord retrieved from Session.
-	this.initializePlayer(startCoordArr[1], startCoordArr[0]);
-	this.player.playerImage.onload = () => {
-		this.renderPlayer();
-	}
 
 	this.boardArray = new Array(this.heightInTiles);
 	for (let i = 0; i < this.boardArray.length; i++) {
@@ -35,10 +7,99 @@ function Maze() {
 	}
 
 	this.moveDelay = 250;
-	this.winningSquare = {
-		// Changed to look at goal coord retrieved from Session.
-		row: goalCoordArr[0],
-		column: goalCoordArr[1],
+
+	// Function to initialize the stage
+	this.initializeStage = (playerSpot, goalSpot, obstacles) => {
+		// Initialize Player
+		this.initializePlayer(parseInt(playerSpot[1]), parseInt(playerSpot[0]));
+		this.player.playerImage.onload = () => {
+			this.renderPlayer();
+		}
+
+		// Initialize Goal
+		this.winningSquare = {
+			row: parseInt(goalSpot[0]),
+			column: parseInt(goalSpot[1]),
+		};
+		this.boardArray[this.winningSquare.row][this.winningSquare.column] = "win";
+
+		//Initialize Obstacles
+		obstacles.pop();
+		for(let obstacle of obstacles) {
+			obstacle = obstacle.split(',');
+			this.boardArray[obstacle[0]][obstacle[1]] = 'obs';
+		}
+
+		this.canvasRefresh();
+
+		// 0 = up, 1=right, 2=down, 3=left
+		// Move forward until an obstacle or a wall is hit
+		this.player.move = async () => {
+			let moveDistance = 0;
+
+			switch (this.player.spriteSheetY) {
+				case 0:
+					while (this.player.yPosition - moveDistance > 0 &&
+						this.boardArray[this.player.yPosition - moveDistance - 1][this.player.xPosition] !== "obs" &&
+						this.boardArray[this.player.yPosition - moveDistance][this.player.xPosition] !== "win") {
+						moveDistance++;
+					}
+					for (let i = 0; i < moveDistance; i++) {
+						setTimeout(() => {
+							this.moveFrame();
+							this.player.yPosition--;
+							this.canvasRefresh();
+						}, this.moveDelay * i)
+					}
+					break;
+				case 1:
+					while (this.player.xPosition + moveDistance < this.widthInTiles - 1 &&
+						this.boardArray[this.player.yPosition][this.player.xPosition + moveDistance + 1] !== "obs" &&
+						this.boardArray[this.player.yPosition][this.player.xPosition + moveDistance] !== "win") {
+						moveDistance++;
+					}
+					for (let i = 0; i < moveDistance; i++) {
+						setTimeout(() => {
+							this.moveFrame();
+							this.player.xPosition++;
+							this.canvasRefresh();
+						}, this.moveDelay * i)
+					}
+					break;
+				case 2:
+					while (this.player.yPosition + moveDistance < this.heightInTiles - 1 &&
+						this.boardArray[this.player.yPosition + moveDistance + 1][this.player.xPosition] !== "obs" &&
+						this.boardArray[this.player.yPosition + moveDistance][this.player.xPosition] !== "win") {
+						moveDistance++;
+					}
+					for (let i = 0; i < moveDistance; i++) {
+						setTimeout(() => {
+							this.moveFrame();
+							this.player.yPosition++;
+							this.canvasRefresh();
+						}, this.moveDelay * i)
+					}
+					break;
+				case 3:
+					while (this.player.xPosition - moveDistance > 0 &&
+						this.boardArray[this.player.yPosition][this.player.xPosition - moveDistance - 1] !== "obs" &&
+						this.boardArray[this.player.yPosition][this.player.xPosition - moveDistance] !== "win") {
+						moveDistance++;
+					}
+					for (let i = 0; i < moveDistance; i++) {
+						setTimeout(() => {
+							this.moveFrame();
+							this.player.xPosition--;
+							this.canvasRefresh();
+						}, this.moveDelay * i)
+					}
+					break;
+			}
+
+			return new Promise((resolve, reject) => {
+				setTimeout(() => { resolve(true) }, this.moveDelay * moveDistance);
+			});
+		};
 	};
 
 	this.renderObstacles = function (boardArray) {
@@ -88,11 +149,9 @@ function Maze() {
 
 		this.renderObstacles(this.boardArray);
 
-		this.renderWinningSquare();
+		if(this.winningSquare) this.renderWinningSquare();
 
-		if (this.player) {
-			this.renderPlayer();
-		}
+		if(this.player) this.renderPlayer();
 	};
 
 	this.moveFrame = () => {
@@ -102,75 +161,6 @@ function Maze() {
 		else {
 			this.player.currFrame++;
 		}
-	};
-
-	// 0 = up, 1=right, 2=down, 3=left
-	// Move forward until an obstacle or a wall is hit
-	this.player.move = async () => {
-		let moveDistance = 0;
-
-		switch (this.player.spriteSheetY) {
-			case 0:
-				while (this.player.yPosition - moveDistance > 0 &&
-					this.boardArray[this.player.yPosition - moveDistance - 1][this.player.xPosition] !== "obs" &&
-					this.boardArray[this.player.yPosition - moveDistance][this.player.xPosition] !== "win") {
-					moveDistance++;
-				}
-				for (let i = 0; i < moveDistance; i++) {
-					setTimeout(() => {
-						this.moveFrame();
-						this.player.yPosition--;
-						this.canvasRefresh();
-					}, this.moveDelay * i)
-				}
-				break;
-			case 1:
-				while (this.player.xPosition + moveDistance < this.widthInTiles - 1 &&
-					this.boardArray[this.player.yPosition][this.player.xPosition + moveDistance + 1] !== "obs" &&
-					this.boardArray[this.player.yPosition][this.player.xPosition + moveDistance] !== "win") {
-					moveDistance++;
-				}
-				for (let i = 0; i < moveDistance; i++) {
-					setTimeout(() => {
-						this.moveFrame();
-						this.player.xPosition++;
-						this.canvasRefresh();
-					}, this.moveDelay * i)
-				}
-				break;
-			case 2:
-				while (this.player.yPosition + moveDistance < this.heightInTiles - 1 &&
-					this.boardArray[this.player.yPosition + moveDistance + 1][this.player.xPosition] !== "obs" &&
-					this.boardArray[this.player.yPosition + moveDistance][this.player.xPosition] !== "win") {
-					moveDistance++;
-				}
-				for (let i = 0; i < moveDistance; i++) {
-					setTimeout(() => {
-						this.moveFrame();
-						this.player.yPosition++;
-						this.canvasRefresh();
-					}, this.moveDelay * i)
-				}
-				break;
-			case 3:
-				while (this.player.xPosition - moveDistance > 0 &&
-					this.boardArray[this.player.yPosition][this.player.xPosition - moveDistance - 1] !== "obs" &&
-					this.boardArray[this.player.yPosition][this.player.xPosition - moveDistance] !== "win") {
-					moveDistance++;
-				}
-				for (let i = 0; i < moveDistance; i++) {
-					setTimeout(() => {
-						this.moveFrame();
-						this.player.xPosition--;
-						this.canvasRefresh();
-					}, this.moveDelay * i)
-				}
-				break;
-		}
-
-		return new Promise((resolve, reject) => {
-			setTimeout(() => { resolve(true) }, this.moveDelay * moveDistance);
-		});
 	};
 
 	// Rotate player left (1) or right (0)
@@ -214,15 +204,6 @@ function Maze() {
 
 		return true;
 	};
-
-	this.boardArray[11][1] = "obs";
-	this.boardArray[7][10] = "obs";
-	this.boardArray[12][9] = "obs";
-	this.boardArray[8][2] = "obs";
-	this.boardArray[7][0] = "obs";
-	this.boardArray[1][1] = "obs";
-	this.boardArray[2][14] = "obs";
-	this.boardArray[this.winningSquare.row][this.winningSquare.column] = "win";
 
 	this.canvasRefresh();
 }

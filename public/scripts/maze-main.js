@@ -19,9 +19,13 @@ const pageInit = () => {
 	const moveList = document.querySelector("#move-list");
 	const startButton = document.querySelector("#start-button");
 	const undoButton = document.querySelector("#undo-button");
+	const stageInfo = document.querySelectorAll("input.stage-info");
 
 	let moves = [];
 	let listOfMoves = [];
+
+	mazeCanvas.initializeStage(stageInfo[1].value.split(','), stageInfo[2].value.split(','), 
+		stageInfo[3].value.split(';'));
 
 	playingArea.appendChild(mazeCanvas.canvas);
 
