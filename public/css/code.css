@@ -3,7 +3,7 @@
 **/
 /* colors */
 /* extender */
-.registration__form,
+#move-list, .registration__form,
 .login__form {
   padding: 20px;
   border: 3px solid #534B3C;
@@ -156,7 +156,6 @@ div[class^=profile] {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 100px;
 }
 
 #challenge-canvas {
@@ -166,6 +165,13 @@ div[class^=profile] {
   padding: 1px;
 }
 
+#coding-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row wrap;
+  padding: 0 20px;
+}
 #coding-area .action-buttons,
 #coding-area .movement-buttons {
   vertical-align: middle;
@@ -189,25 +195,66 @@ div[class^=profile] {
   vertical-align: middle;
   font-size: 2.8em;
 }
+#coding-area .action-buttons:before,
+#coding-area .movement-buttons:before {
+  padding-right: 10px;
+}
+#coding-area .action-buttons:after,
+#coding-area .movement-buttons:after {
+  padding-left: 10px;
+}
+
+#start-button:before {
+  content: "8";
+}
+
+#quit-button:after {
+  content: "K";
+}
+
+#undo-button:before {
+  content: "v";
+}
 
 #turn-left:before {
-  content: "v";
-  padding-right: 10px;
+  content: "c";
 }
 
 #move-forward:after {
-  content: "L";
-  padding-left: 10px;
+  content: "G";
 }
 
 #turn-right:after {
-  content: "V";
-  padding-left: 10px;
+  content: "C";
 }
 
 .btn__block {
   display: flex;
   margin-bottom: 10px;
+}
+
+#score {
+  color: #DB5A42;
+  text-align: left;
+  padding: 20px 20px 0;
+}
+
+#play {
+  flex: 1 100%;
+}
+
+#move-list {
+  height: 320px;
+  overflow: auto;
+  text-align: left;
+}
+#move-list::-webkit-scrollbar {
+  width: 6px;
+  background-color: #A57F60;
+}
+#move-list::-webkit-scrollbar-thumb {
+  background-color: #534B3C;
+  border-radius: 20px;
 }
 
 /*# sourceMappingURL=code.css.map */
