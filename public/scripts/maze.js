@@ -1,7 +1,7 @@
 function Maze() {
 	ChallengeCanvas.call(this);
 
-	this.initializePlayer();
+	this.initializePlayer(2, 3);
 	this.player.playerImage.onload = () => {
 		this.renderPlayer();
 	}
