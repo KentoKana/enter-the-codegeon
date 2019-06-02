@@ -97,9 +97,11 @@ if (isset($_POST['submitLogin'])) {
 
 // If userid session is set, redirect to profile.php.
 if (isset($_SESSION['userid'])) {
+    $u = new User($collection);
+
     $id = $_SESSION['userid'];
     // search the user
-    $user = $collection->findOne(['_id' => new MongoDB\BSON\ObjectId("$id")]);
+    $user = $u->getCurrentUser($id);
 
     if (isset($_POST['logout'])) {
         session_destroy();

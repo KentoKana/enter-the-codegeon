@@ -8,6 +8,7 @@ class User
     private $firstName;
     private $lastName;
     private $password;
+    private $currentUser;
 
     public function __construct($collection)
     {
@@ -99,6 +100,10 @@ class User
     }
 
     // CRUD Methods
+    public function getCurrentUser($id){
+        return $this->currentUser = $this->collection->findOne(['_id' => new MongoDB\BSON\ObjectID($id)]);
+    }
+
     public function addUser()
     {
         $record = $this->collection->insertOne([
