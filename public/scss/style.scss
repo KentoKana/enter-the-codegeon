@@ -11,8 +11,8 @@ $flesh: #E3A587;
 $red: #DB5A42;
 $max-width: 1200px;
 $body-font: 'Ubuntu', sans-serif;
-$heading-font: Impact;
-
+$heading-font: "Impact";
+$icon-fonts: "MixDirections";
 /* extender */
 
 %with-bg_border {
@@ -204,7 +204,7 @@ div[class^="profile"] {
     &:before,
     &:after {
       display: inline-flex;
-      font-family: MixDirections;
+      font-family: $icon-fonts;
       vertical-align: middle;
       font-size: 2.8em;
     }
