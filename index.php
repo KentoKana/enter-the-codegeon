@@ -6,6 +6,7 @@ require_once './controllers/user-controller.php';
 require_once './controllers/stage-controller.php';
 
 $vars = array_values(array_filter(explode('/', $_SERVER['REQUEST_URI'])));
+if($vars[0]==='enter-the-codegeon') array_shift($vars);
 
 if(count($vars) % 2 == 1)
 {
@@ -22,5 +23,5 @@ for($i = 0; $i < count($vars); $i += 2)
   $_GET[$vars[$i]] = $vars[$i + 1];
 }
 
-include './views/' . $page . '.php';
+include "./views/" . $page . '.php';
 ?>
