@@ -47,11 +47,11 @@ function MazeBuilder() {
 
 	// method used to resize the canvas and redraw the grid accordingly
 	this.canvasRefresh = function() {
-		if(window.innerWidth < 1200) {
-			this.canvas.width = window.innerWidth / 2;
+		if (window.innerWidth < 1200) {
+			this.canvas.width = window.innerHeight / 1.5 < window.innerWidth / 2 ? window.innerHeight / 1.5 : window.innerWidth / 2;
 		}
 		else {
-			this.canvas.width = 1200 / 2;
+			this.canvas.width = window.innerHeight / 1.5 < 600 ? window.innerHeight / 1.5 : 600;
 		}
 
 		this.gridSize = this.canvas.width / this.widthInTiles;
@@ -299,4 +299,6 @@ function MazeBuilder() {
 			}
 		}
 	};
+
+	this.canvasRefresh();
 }
