@@ -89,16 +89,14 @@ if (isset($_POST['submitLogin'])) {
         $errorMsg = 'Username/E-mail and password does not match.';
     }
 
-    if(isset($_SESSION['userid'])){
+    if (isset($_SESSION['userid'])) {
         header('location: ./profile.php');
     }
-
 }
 
 // If userid session is set, redirect to profile.php.
 if (isset($_SESSION['userid'])) {
     $u = new User($collection);
-
     $id = $_SESSION['userid'];
     // search the user
     $user = $u->getCurrentUser($id);
@@ -107,4 +105,11 @@ if (isset($_SESSION['userid'])) {
         session_destroy();
         header('Location: /');
     }
+}
+
+if (isset($_POST['submitUserEdit'])) {
+    $u = new User($collection);
+    $id = $_SESSION['userid'];
+    // search the user
+    $user = $u->getCurrentUser($id);
 }

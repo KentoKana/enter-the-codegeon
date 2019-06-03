@@ -119,4 +119,9 @@ class User
             return $record->getInsertedId();
         }
     }
+
+    public function editUser() 
+    {
+        
+    }
 }
