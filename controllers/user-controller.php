@@ -89,20 +89,45 @@ if (isset($_POST['submitLogin'])) {
         $errorMsg = 'Username/E-mail and password does not match.';
     }
 
-    if(isset($_SESSION['userid'])){
+    if (isset($_SESSION['userid'])) {
         header('location: ./profile.php');
     }
-
 }
 
 // If userid session is set, redirect to profile.php.
 if (isset($_SESSION['userid'])) {
+    $u = new User($collection);
     $id = $_SESSION['userid'];
     // search the user
-    $user = $collection->findOne(['_id' => new MongoDB\BSON\ObjectId("$id")]);
+    $user = $u->getCurrentUser($id);
 
     if (isset($_POST['logout'])) {
         session_destroy();
         header('Location: /');
     }
+}
+
+if (isset($_POST['submitUserEdit'])) {
+    $u = new User($collection);
+    $id = $_SESSION['userid'];
+    // search the user
+    $user = $u->getCurrentUser($id);
+
+    $u->setFirstName($_POST['firstName']);
+    $u->setLastName($_POST['lastName']);
+    $u->setEmail($_POST['email']);
+    $u->setUsername($_POST['username']);
+
+    //User Info Array
+    $userInfo = [
+        $fname,
+        $lname,
+        $username,
+        $password,
+        $email
+    ];
+
+    $u->editUser();
+
+    header('Location: profile');
 }

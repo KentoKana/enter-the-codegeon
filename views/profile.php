@@ -15,7 +15,9 @@ if(!isset($_SESSION['userid'])){
  </div>
  <div class="profile__playGame">
    <h2><a href="./stage-picker">Play Enter the Codegeon!</a></h2>
-
+ </div>
+ <div class="profile__editProfile">
+   <h3><a href="user-edit">Edit Your Information</a></h3>
  </div>
  <div class="profile__achievements">
    <h2>Achievements</h2>

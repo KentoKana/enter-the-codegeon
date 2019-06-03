@@ -8,6 +8,7 @@ class User
     private $firstName;
     private $lastName;
     private $password;
+    private $currentUser;
 
     public function __construct($collection)
     {
@@ -99,6 +100,11 @@ class User
     }
 
     // CRUD Methods
+    public function getCurrentUser($id)
+    {
+        return $this->currentUser = $this->collection->findOne(['_id' => new MongoDB\BSON\ObjectID($id)]);
+    }
+
     public function addUser()
     {
         $record = $this->collection->insertOne([
@@ -113,5 +119,18 @@ class User
             // insert the userid into session
             return $record->getInsertedId();
         }
+    }
+
+    public function editUser()
+    {
+        $this->collection->updateOne(
+            ['_id' => $this->currentUser['_id']],
+            ['$set' => [
+                'firstName' => $this->firstName,
+                'lastName' => $this->lastName,
+                'username' => $this->username,
+                'email' => $this->email,
+            ]]
+        );
     }
 }
