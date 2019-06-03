@@ -112,4 +112,22 @@ if (isset($_POST['submitUserEdit'])) {
     $id = $_SESSION['userid'];
     // search the user
     $user = $u->getCurrentUser($id);
+
+    $u->setFirstName($_POST['firstName']);
+    $u->setLastName($_POST['lastName']);
+    $u->setEmail($_POST['email']);
+    $u->setUsername($_POST['username']);
+
+    //User Info Array
+    $userInfo = [
+        $fname,
+        $lname,
+        $username,
+        $password,
+        $email
+    ];
+
+    $u->editUser();
+
+    header('Location: profile');
 }

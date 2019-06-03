@@ -100,7 +100,8 @@ class User
     }
 
     // CRUD Methods
-    public function getCurrentUser($id){
+    public function getCurrentUser($id)
+    {
         return $this->currentUser = $this->collection->findOne(['_id' => new MongoDB\BSON\ObjectID($id)]);
     }
 
@@ -120,8 +121,16 @@ class User
         }
     }
 
-    public function editUser() 
+    public function editUser()
     {
-        
+        $this->collection->updateOne(
+            ['_id' => $this->currentUser['_id']],
+            ['$set' => [
+                'firstName' => $this->firstName,
+                'lastName' => $this->lastName,
+                'username' => $this->username,
+                'email' => $this->email,
+            ]]
+        );
     }
 }
