@@ -73,6 +73,20 @@ class User
         return $this->password;
     }
 
+    public function setEditPassword($password, $passConfirm)
+    {
+        if (
+            $password == '' ||
+            $passConfirm == '' ||
+            $password != $passConfirm
+        ) {
+            return false;
+        } else {
+            $hashedPass = password_hash($passConfirm, PASSWORD_DEFAULT);
+            return $this->password = $hashedPass;
+        }
+    }
+
     public function setLoginPass($password)
     {
         if ($password == '') {
@@ -132,5 +146,23 @@ class User
                 'email' => $this->email,
             ]]
         );
+
+        // If Password field is set, then
+        if($this->password) {
+            $this->collection->updateOne(
+                ['_id' => $this->currentUser['_id']],
+                ['$set' => [
+                    'password' => $this->password,
+                ]]
+            );
+        } else {
+            $this->collection->updateOne(
+                ['_id' => $this->currentUser['_id']],
+                ['$set' => [
+                    'password' => $this->currentUser['password'],
+                ]]
+            );
+        }
+
     }
 }

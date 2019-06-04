@@ -107,6 +107,7 @@ if (isset($_SESSION['userid'])) {
     }
 }
 
+// User Edit Controller
 if (isset($_POST['submitUserEdit'])) {
     $u = new User($collection);
     $id = $_SESSION['userid'];
@@ -117,6 +118,7 @@ if (isset($_POST['submitUserEdit'])) {
     $u->setLastName($_POST['lastName']);
     $u->setEmail($_POST['email']);
     $u->setUsername($_POST['username']);
+    $u->setEditPassword($_POST['password'], $_POST['passwordConfirm']);
 
     //User Info Array
     $userInfo = [
