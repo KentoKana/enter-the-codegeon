@@ -19,6 +19,9 @@ if(!isset($_SESSION['userid'])){
  <div class="profile__editProfile">
    <h3><a href="user-edit">Edit Your Information</a></h3>
  </div>
+ <div class="profile__editProfile">
+   <h3><a href="stage-builder">Build a Challenge!</a></h3>
+ </div>
  <div class="profile__achievements">
    <h2>Achievements</h2>
    <?php
