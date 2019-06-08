@@ -4,6 +4,25 @@ require_once './Models/User.php';
 $client = new MongoDB\Client(env('MONGO_URI'));
 $collection = $client->codegen->users;
 $errorMsg = '';
+$userInfo = [
+    'fname' => '',
+    'lname' => '',
+    'username' => '',
+    'initialPass' => '',
+    'password' => '',
+    'email' => '',
+];
+
+function validationMsg($input, $fieldName)
+{
+    global $userInfo;
+    $msg = "<br> Please enter a valid $fieldName";
+    //Should be checking for False, but variables return NULL instead for first name:/ 
+    //Apologies - I'll try to fix it when the validation works at minimum level.
+    if ($userInfo[$input] === NULL || $userInfo[$input] === false) {
+        return $msg;
+    }
+}
 
 //Registration Controller
 if (isset($_POST['submitRegister'])) {
@@ -15,26 +34,20 @@ if (isset($_POST['submitRegister'])) {
     $u->setUsername($_POST['username']);
     $u->setRegisterPassword($_POST['password'], $_POST['passwordConfirm']);
     $u->setEmail($_POST['email']);
+    if ($_POST['password'] === '') {
+        $userInfo['initialPass'] = false;
+    }
 
     // Get User Info
-    $fname = $u->getFirstName();
-    $lname = $u->getLastName();
-    $username = $u->getUsername();
-    $password = $u->getRegisterPassword();
-    $email = $u->getEmail();
-
-    //User Info Array
-    $userInfo = [
-        $fname,
-        $lname,
-        $username,
-        $password,
-        $email
-    ];
+    $userInfo['fname'] = $u->getFirstName();
+    $userInfo['lname'] = $u->getLastName();
+    $userInfo['username'] = $u->getUsername();
+    $userInfo['password'] = $u->getRegisterPassword();
+    $userInfo['email'] = $u->getEmail();
 
     //Check if user who is about to register already exists in the DB.
-    $registeringUser = $collection->findOne(['username' => $username]);
-    $registeringUserEmail = $collection->findOne(['email' => $email]);
+    $registeringUser = $collection->findOne(['username' => $userInfo['username']]);
+    $registeringUserEmail = $collection->findOne(['email' => $userInfo['email']]);
 
     if ($registeringUser || $registeringUserEmail) {
         if ($registeringUser) {
@@ -43,15 +56,12 @@ if (isset($_POST['submitRegister'])) {
         if ($registeringUserEmail) {
             $errorMsg .= 'Email Already Registered. <br>';
         }
-        echo $errorMsg;
     } else {
         // If no userInfo items return false, write to the database.
         if (array_search(false, $userInfo) === false) {
             $addedUserId = $u->addUser();
             $_SESSION['userid'] = $addedUserId;
             // echo $_POST['password'];
-        } else {
-            echo 'failed';
         }
     }
 }
@@ -79,10 +89,8 @@ if (isset($_POST['submitLogin'])) {
     } elseif (empty($password)) {
         $errorMsg = "Please enter your password.";
     } elseif (password_verify($password, $loggingInUserEmail['password'])) {
-        echo 'Login Successful!';
         $_SESSION['userid'] = $loggingInUserEmail['_id'];
     } elseif (password_verify($password, $loggingInUser['password'])) {
-        echo 'Login Successful!';
         $_SESSION['userid'] = $loggingInUser['_id'];
         header('location: ./profile.php');
     } else {
@@ -120,16 +128,22 @@ if (isset($_POST['submitUserEdit'])) {
     $u->setUsername($_POST['username']);
     $u->setEditPassword($_POST['password'], $_POST['passwordConfirm']);
 
-    //User Info Array
-    $userInfo = [
-        $fname,
-        $lname,
-        $username,
-        $password,
-        $email
-    ];
+    $userInfo['fname'] = $u->getFirstName();
+    $userInfo['lname'] = $u->getLastName();
+    $userInfo['username'] = $u->getUsername();
+    $userInfo['email'] = $u->getEmail();
 
-    $u->editUser();
+    // Manipulate userInfo array - get rid of password edit.
+    // At the moment, if password field is left blank, 
+    // User's previous password is kept. 
+    unset($userInfo['password']);
+    unset($userInfo['initialPass']);
+
+    if (array_search(false, $userInfo) === false) {
+        $u->editUser();
+    } else {
+        return $errorMsg = 'Please review the form and try again';
+    }
 
     header('Location: profile');
 }

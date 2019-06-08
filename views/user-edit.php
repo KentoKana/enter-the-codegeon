@@ -11,28 +11,33 @@ require_once 'partials/navigation.php';
 </header>
 <div class="block">
     <form action="" method="POST" class="registration__form">
+        <p><?= $errorMsg; ?></p>
         <div class="form__block">
             <label for="register__firstName"><span class="field__required">*</span>First Name:</label>
         </div>
         <div class="form__block">
+            <?= validationMsg('fname', 'first name'); ?>
             <input type="text" name="firstName" id="register__firstName" value="<?= $user['firstName']; ?>">
         </div>
         <div class="form__block">
             <label for="register__lastName"><span class="field__required">*</span>Last Name:</label>
         </div>
         <div class="form__block">
+            <?= validationMsg('lname', 'last name'); ?>
             <input type="text" name="lastName" id="register__lastName" value="<?= $user['lastName']; ?>">
         </div>
         <div class="form__block">
             <label for="register__username"><span class="field__required">*</span>Username:</label>
         </div>
         <div class="form__block">
+            <?= validationMsg('username', 'username'); ?>
             <input type="text" name="username" id="register__username" value="<?= $user['username']; ?>">
         </div>
         <div class="form__block">
             <label for="register__email"><span class="field__required">*</span>Email:</label>
         </div>
         <div class="form__block">
+            <?= validationMsg('email', 'e-mail'); ?>
             <input type="text" name="email" id="register__email" value="<?= $user['email']; ?>">
         </div>
         <div class="form__block">
@@ -49,6 +54,9 @@ require_once 'partials/navigation.php';
         </div>
         <div class="form__block">
             <button type="submit" name="submitUserEdit"> Edit!</button>
+            <div>
+                <a href="profile">Cancel</a>
+            </div>
         </div>
     </form>
 </div>
