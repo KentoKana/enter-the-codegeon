@@ -1,6 +1,8 @@
 function MazeBuilder() {
 	ChallengeCanvas.call(this);
 
+	this.solutionBoard = null;
+
 	this.hasPlayer = false;
 	this.hasGoal = false;
 
@@ -70,31 +72,37 @@ function MazeBuilder() {
 		if(this.player) this.renderPlayer();
 	};
 
-	this.checkWinnable = (boardArray, moveList) => {
+	this.checkWinnable = () => {
 		let result;
 		let newMoveList;
-		let solution = [];
+		let solutions = [];
 
-		if(boardArray[this.player.yPosition][this.player.xPosition] === "win") {
-			return moveList;
+		if(this.boardArray[this.player.yPosition][this.player.xPosition] === "win") {
+			return [];
+		}
+		else if(this.solutionBoard[this.player.yPosition][this.player.xPosition] === "no solution") {
+			return false;
+		}
+		else if(Array.isArray(this.solutionBoard[this.player.yPosition][this.player.xPosition])) {
+			return this.solutionBoard[this.player.yPosition][this.player.xPosition];
 		}
 
 		for(let i=0; i<4; i++) {
 			let moveDistance = 0;
 			switch(i) {
 				case 0:
-					newMoveList = [...moveList, 'Move Forward'];
+					newMoveList = ['Move Forward'];
 					break;
 				case 1:
-					newMoveList = [...moveList, 'Turn Right', 'Move Forward'];
+					newMoveList = ['Turn Right', 'Move Forward'];
 					this.player.spriteSheetY = (this.player.spriteSheetY + i) % 4;
 					break;
 				case 2:
-					newMoveList = [...moveList, 'Turn Right', 'Turn Right', 'Move Forward'];
+					newMoveList = ['Turn Right', 'Turn Right', 'Move Forward'];
 					this.player.spriteSheetY = (this.player.spriteSheetY + i) % 4;
 					break;
 				case 3:
-					newMoveList = [...moveList, 'Turn Left', 'Move Forward'];
+					newMoveList = ['Turn Left', 'Move Forward'];
 					this.player.spriteSheetY = (this.player.spriteSheetY + i) % 4;
 					break;
 			}
@@ -102,22 +110,22 @@ function MazeBuilder() {
 			switch(this.player.spriteSheetY) {
 				case 0:
 					while(this.player.yPosition - moveDistance > 0 && 
-							boardArray[this.player.yPosition - moveDistance - 1][this.player.xPosition] !== "obs" &&
-							boardArray[this.player.yPosition - moveDistance][this.player.xPosition] !== "win") {
+							this.boardArray[this.player.yPosition - moveDistance - 1][this.player.xPosition] !== "obs" &&
+							this.boardArray[this.player.yPosition - moveDistance][this.player.xPosition] !== "win") {
 						moveDistance++;
 					}
 					this.player.yPosition = this.player.yPosition - moveDistance;
 
-					if(boardArray[this.player.yPosition][this.player.xPosition] !== true) {
-						if(boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
-							boardArray[this.player.yPosition][this.player.xPosition] = true;
+					if(this.boardArray[this.player.yPosition][this.player.xPosition] !== true) {
+						if(this.boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
+							this.boardArray[this.player.yPosition][this.player.xPosition] = true;
 						}
-						result = this.checkWinnable(boardArray, newMoveList);
+						result = this.checkWinnable();
 						if(result) {
-							if(solution.length === 0 || result.length < solution.length) { solution = result };
+							solutions.push([...newMoveList, ...result]);
 						}
-						if(boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
-							boardArray[this.player.yPosition][this.player.xPosition] = null;
+						if(this.boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
+							this.boardArray[this.player.yPosition][this.player.xPosition] = null;
 						}
 					}
 
@@ -126,22 +134,22 @@ function MazeBuilder() {
 					break;
 				case 1:
 					while(this.player.xPosition + moveDistance < this.widthInTiles - 1 && 
-							boardArray[this.player.yPosition][this.player.xPosition + moveDistance + 1] !== "obs" &&
-							boardArray[this.player.yPosition][this.player.xPosition + moveDistance] !== "win") {
+							this.boardArray[this.player.yPosition][this.player.xPosition + moveDistance + 1] !== "obs" &&
+							this.boardArray[this.player.yPosition][this.player.xPosition + moveDistance] !== "win") {
 						moveDistance++;
 					}
 					this.player.xPosition = this.player.xPosition + moveDistance;
 
-					if(boardArray[this.player.yPosition][this.player.xPosition] !== true) {
-						if(boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
-							boardArray[this.player.yPosition][this.player.xPosition] = true;
+					if(this.boardArray[this.player.yPosition][this.player.xPosition] !== true) {
+						if(this.boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
+							this.boardArray[this.player.yPosition][this.player.xPosition] = true;
 						}
-						result = this.checkWinnable(boardArray, newMoveList);
+						result = this.checkWinnable();
 						if(result) {
-							if(solution.length === 0 || result.length < solution.length) { solution = result };
+							solutions.push([...newMoveList, ...result]);
 						}
-						if(boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
-							boardArray[this.player.yPosition][this.player.xPosition] = null;
+						if(this.boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
+							this.boardArray[this.player.yPosition][this.player.xPosition] = null;
 						}
 					}
 
@@ -150,22 +158,22 @@ function MazeBuilder() {
 					break;
 				case 2:
 					while(this.player.yPosition + moveDistance < this.heightInTiles - 1 && 
-							boardArray[this.player.yPosition + moveDistance + 1][this.player.xPosition] !== "obs" &&
-							boardArray[this.player.yPosition + moveDistance][this.player.xPosition] !== "win") {
+							this.boardArray[this.player.yPosition + moveDistance + 1][this.player.xPosition] !== "obs" &&
+							this.boardArray[this.player.yPosition + moveDistance][this.player.xPosition] !== "win") {
 						moveDistance++;
 					}
 					this.player.yPosition = this.player.yPosition + moveDistance;
 
-					if(boardArray[this.player.yPosition][this.player.xPosition] !== true) {
-						if(boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
-							boardArray[this.player.yPosition][this.player.xPosition] = true;
+					if(this.boardArray[this.player.yPosition][this.player.xPosition] !== true) {
+						if(this.boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
+							this.boardArray[this.player.yPosition][this.player.xPosition] = true;
 						}
-						result = this.checkWinnable(boardArray, newMoveList);
+						result = this.checkWinnable();
 						if(result) {
-							if(solution.length === 0 || result.length < solution.length) { solution = result };
+							solutions.push([...newMoveList, ...result]);
 						}
-						if(boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
-							boardArray[this.player.yPosition][this.player.xPosition] = null;
+						if(this.boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
+							this.boardArray[this.player.yPosition][this.player.xPosition] = null;
 						}
 					}
 
@@ -174,22 +182,22 @@ function MazeBuilder() {
 					break;
 				case 3:
 					while(this.player.xPosition - moveDistance > 0 && 
-							boardArray[this.player.yPosition][this.player.xPosition - moveDistance - 1] !== "obs" &&
-							boardArray[this.player.yPosition][this.player.xPosition - moveDistance] !== "win") {
+							this.boardArray[this.player.yPosition][this.player.xPosition - moveDistance - 1] !== "obs" &&
+							this.boardArray[this.player.yPosition][this.player.xPosition - moveDistance] !== "win") {
 						moveDistance++;
 					}
 					this.player.xPosition = this.player.xPosition - moveDistance;
 
-					if(boardArray[this.player.yPosition][this.player.xPosition] !== true) {
-						if(boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
-							boardArray[this.player.yPosition][this.player.xPosition] = true;
+					if(this.boardArray[this.player.yPosition][this.player.xPosition] !== true) {
+						if(this.boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
+							this.boardArray[this.player.yPosition][this.player.xPosition] = true;
 						}
-						result = this.checkWinnable(boardArray, newMoveList);
+						result = this.checkWinnable();
 						if(result) {
-							if(solution.length === 0 || result.length < solution.length) { solution = result };
+							solutions.push([...newMoveList, ...result]);
 						}
-						if(boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
-							boardArray[this.player.yPosition][this.player.xPosition] = null;
+						if(this.boardArray[this.player.yPosition][this.player.xPosition] !== "win") {
+							this.boardArray[this.player.yPosition][this.player.xPosition] = null;
 						}
 					}
 
@@ -200,8 +208,40 @@ function MazeBuilder() {
 			this.player.spriteSheetY = (this.player.spriteSheetY + (4-i)) % 4;
 		}
 
-		return solution.length === 0 ? false : solution;
+		let smallestSolution = [];
+		for(let solution of solutions) {
+			if(solution.length < smallestSolution.length || smallestSolution.length === 0) {
+				smallestSolution = solution;
+			}
+		}
+
+		if(smallestSolution.length === 0) {
+			this.solutionBoard[this.player.yPosition][this.player.xPosition] = "no solution";
+			return false;
+		}
+		else {
+			this.solutionBoard[this.player.yPosition][this.player.xPosition] = smallestSolution;
+			return smallestSolution;
+		}
 	};
+
+	this.findSolution = () => {
+		let origBoard = this.boardArray.map((row) => {
+			return [...row];
+		});
+		this.solutionBoard = origBoard.map((row) => {
+			return [...row];
+		});
+
+		let result = this.checkWinnable();
+
+		this.solutionBoard = null;
+		this.boardArray = origBoard.map((row) => {
+			return [...row];
+		});
+
+		return result;
+	}
 
 	this.getObstacles = () => {
 		let obstacles = [];

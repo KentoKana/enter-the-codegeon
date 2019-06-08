@@ -54,7 +54,7 @@ const pageInit = () => {
 
 	checkButton.addEventListener('mouseup', () => {
 		if(mazeCanvas.checkSubmittable()) {
-			let winnable = mazeCanvas.checkWinnable(mazeCanvas.boardArray, []);
+			let winnable = mazeCanvas.findSolution();
 			if(winnable) {
 				messages.innerHTML = 'Your stage is solvable. Solution is: ' + winnable.join(', ') +
 						'. You can submit your stage now.';
