@@ -11,7 +11,9 @@ require_once 'partials/navigation.php';
 </header>
 <div class="block">
     <form action="" method="POST" class="registration__form">
+        <!-- General Error Message -->
         <p><?= $errorMsg; ?></p>
+        
         <div class="form__block">
             <label for="register__firstName"><span class="field__required">*</span>First Name:</label>
         </div>

@@ -61,7 +61,8 @@ if (isset($_POST['submitRegister'])) {
         if (array_search(false, $userInfo) === false) {
             $addedUserId = $u->addUser();
             $_SESSION['userid'] = $addedUserId;
-            // echo $_POST['password'];
+        } else {
+            $errorMsg .= 'Please review the form and try again<br>';
         }
     }
 }
@@ -132,6 +133,13 @@ if (isset($_POST['submitUserEdit'])) {
     $userInfo['lname'] = $u->getLastName();
     $userInfo['username'] = $u->getUsername();
     $userInfo['email'] = $u->getEmail();
+
+    // Need to add logic to disallow the user to change their username/email
+    // to something that already exist in another user's profile.
+    #Logic:
+    #Check if the entered username/email is not the same as the currently registered username/email for the current user.
+    #If not, check if the newly entered username/email exists in the database already for any other users.
+    #If both these conditions return false, then allow the edit.
 
     // Manipulate userInfo array - get rid of password edit.
     // At the moment, if password field is left blank, 

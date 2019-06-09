@@ -11,7 +11,10 @@ require_once 'partials/navigation.php';
 </header>
 <div class="block">
     <form action="" method="POST" class="registration__form">
+
+        <!-- General Error Message -->
         <p><?= $errorMsg; ?></p>
+
         <div class="form__block">
             <label for="register__firstName"><span class="field__required">*</span>First Name:</label>
         </div>
@@ -55,6 +58,9 @@ require_once 'partials/navigation.php';
         </div>
         <div class="form__block">
             <button type="submit" name="submitRegister"> Register</button>
+            <div>
+                <a href="profile">Cancel</a>
+            </div>
         </div>
     </form>
 </div>
