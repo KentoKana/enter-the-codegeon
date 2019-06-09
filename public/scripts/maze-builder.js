@@ -24,7 +24,7 @@ function MazeBuilder() {
 		for(let i=0; i<boardArray.length; i++) {
 			let innerArray = boardArray[i];
 			for(let j=0; j<innerArray.length; j++) {
-				this.context.fillStyle = "orange";
+				this.context.fillStyle = "red";
 				if(boardArray[i][j] === "obs") {
 					this.context.fillRect(
 						j * this.gridSize, 

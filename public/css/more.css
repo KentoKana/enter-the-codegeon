@@ -10,3 +10,24 @@
 #coding-area {
 	flex: 1 0 0;
 }
+
+/* Stage Picker */
+
+#stage-form {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.stage-preview {
+	width: 100%;
+}
+
+.stage-button {
+	max-width: 23%;
+	flex: 23%;
+	margin: 0.5% 1%;
+	background: #FFF;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+}
