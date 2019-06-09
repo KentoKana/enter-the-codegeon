@@ -23,4 +23,5 @@ if (isset($_POST['stageId'])) {
     $_SESSION['startCoord'] = $s->getCoord('startPosition');
     $_SESSION['goalCoord'] = $s->getCoord('goalPosition');
     $_SESSION['obsCoords'] = $s->getObstacleCoords();
+    $_SESSION['solution'] = $s->getSolution();
 }

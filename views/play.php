@@ -10,6 +10,8 @@ require_once 'partials/navigation.php';
 <input type="hidden" id="startCoord" class="stage-info" value="<?=$_SESSION['startCoord']?>">
 <input type="hidden" id="goalCoord" class="stage-info" value="<?=$_SESSION['goalCoord']?>">
 <input type="hidden" id="obsCoords" class="stage-info" value="<?=$_SESSION['obsCoords']?>">
+<input type="hidden" id="solution" class="stage-info" value="<?=$_SESSION['solution']?>">
+
   <header class="block">
    <h1 id="score">Score:</h1>
   </header>

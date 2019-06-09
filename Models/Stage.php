@@ -100,6 +100,15 @@ class Stage
         return $obs_coords;
     }
 
+    public function getSolution()
+    {
+        $solutionStr='';
+        foreach($this->pickedStage['solution'] as $move) {
+            $solutionStr .= "$move;";
+        }
+        return $solutionStr;
+    }
+
     public function addStage($stageInfo)
     {
         return $this->collection->insertOne($stageInfo);
