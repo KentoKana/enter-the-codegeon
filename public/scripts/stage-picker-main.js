@@ -1,7 +1,20 @@
 "use strict";
 
+let disableButtons = (buttons) => {
+	for(let button of buttons) {
+		button.disabled = true;
+	}
+}
+
+let enableButtons = (buttons) => {
+	for(let button of buttons) {
+		button.disabled = false;
+	}
+}
+
 const pageInit = () => {
 	const stageButtons = document.querySelectorAll("button.stage-button");
+	disableButtons(stageButtons);
 	let mazeCanvases = [];
 
 	for(let button of stageButtons) {
@@ -24,6 +37,10 @@ const pageInit = () => {
 					button.appendChild(mazeCanvas.canvas);
 
 					mazeCanvases.push(mazeCanvas);
+
+					if(mazeCanvases.length === stageButtons.length) {
+						enableButtons(stageButtons);
+					}
 				}
 				else {
 					alert("Connection was unsuccessful");
