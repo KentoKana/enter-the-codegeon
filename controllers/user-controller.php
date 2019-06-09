@@ -13,6 +13,7 @@ $userInfo = [
     'email' => '',
 ];
 
+// Functions
 function validationMsg($input, $fieldName)
 {
     global $userInfo;
