@@ -12,8 +12,10 @@ $obs_coords = '';
 $start_coord='';
 
 
-if (isset($_POST['stageId'])) {
-    $pickedStage = $s->getPickedStage($_POST['stageId']);
+if (isset($_POST['playStage'])) {
+    
+    header('Location: play');
+    $pickedStage = $s->getPickedStage($_POST['playStage']);
 
     $_SESSION['stageName'] = $pickedStage['stageName'];
     //Set stageId session.

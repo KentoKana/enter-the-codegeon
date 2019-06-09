@@ -9,21 +9,39 @@ require_once 'partials/navigation.php';
   <h1 class="charcoal">Select Your Challenge!</h1>
 </header>
 <div class="block">
-  <form id="stage-form" action="./play" method="POST">
+  <form id="stage-form" action="" method="POST">
     <?php
-      // Iterate through all stage items.
-      foreach ($allStages as $stage) {
-    ?>
+    // Iterate through all stage items.
+    foreach ($allStages as $stage) {
+      ?>
 
-    <button class="stage-button" type="submit" name="stageId" value="<?= $stage['_id']; ?>">
-      <!-- <canvas class="stage-preview"></canvas> -->
-      <h3><?= $stage['stageName']; ?></h3>
-    </button>
+      <button class="stage-button" type="submit" name="playStage" value="<?= $stage['_id']; ?>">
+        <!-- <canvas class="stage-preview"></canvas> -->
+        <h3><?= $stage['stageName']; ?></h3>
+      </button>
+      <div>
+        <table>
+          <caption>
+            <h3>High Score</h3>
+          </caption>
+          <tr>
+            <th>Player</th>
+            <th>Number of Moves to Complete This Stage</th>
+          </tr>
+          <tr>
+            <?php foreach ($stage['userScores'] as $player=>$score) { ?>
+              <td><?= $u->getCurrentUser($player)['username']; ?></td>
+              <td><?= $score ?></td>
+            <?php } ?>
+          </tr>
+        </table>
+      </div>
+
 
     <?php
-      }
-      // Once user chooses stage, send the stageId to play.php
-    ?>
+  }
+  // Once user chooses stage, send the stageId to play.php
+  ?>
   </form>
 </div>
 <?php
