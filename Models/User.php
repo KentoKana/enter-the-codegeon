@@ -119,6 +119,11 @@ class User
         return $this->currentUser = $this->collection->findOne(['_id' => new MongoDB\BSON\ObjectID($id)]);
     }
 
+    public function getUserById($id)
+    {
+        return $this->collection->find(['_id' => new MongoDB\BSON\ObjectID($id)]);
+    }
+
     public function addUser()
     {
         $record = $this->collection->insertOne([
@@ -141,7 +146,7 @@ class User
         $this->collection->updateOne(
             ['_id' => $this->currentUser['_id']],
             ['$set' => [
-                'image'=> $file,
+                'image' => $file,
             ]]
         );
     }
@@ -180,8 +185,8 @@ class User
     {
         $completedStages = $this->getCompletedStages();
 
-        if(isset($completedStages[$stageId])) {
-            if($completedStages[$stageId] < $stars) {
+        if (isset($completedStages[$stageId])) {
+            if ($completedStages[$stageId] < $stars) {
                 $completedStages[$stageId] = $stars;
                 $this->collection->updateOne(
                     ['_id' => $this->currentUser['_id']],
@@ -190,8 +195,7 @@ class User
                     ]]
                 );
             }
-        }
-        else {
+        } else {
             $completedStages[$stageId] = $stars;
             $this->collection->updateOne(
                 ['_id' => $this->currentUser['_id']],
