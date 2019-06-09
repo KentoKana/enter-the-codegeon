@@ -9,9 +9,6 @@ if(!isset($_SESSION['userid'])){
    <h1>Welcome, <?= (string)$user->firstName ?></h1>
    <!-- Test Image File -->
    <img src="public/images/user.png" alt="User Profile" width="100">
-   <form action="./" method="POST">
-     <button type="submit" name="logout">Log out</button>
-   </form>
  </div>
  <div class="profile__playGame">
    <h2><a href="./stage-picker">Play Enter the Codegeon!</a></h2>
