@@ -25,4 +25,3 @@ require_once './controllers/user-controller.php';
 require_once './controllers/stage-controller.php';
 require_once './controllers/game-controller.php';
 include "./views/" . $page . '.php';
-?>

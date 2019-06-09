@@ -30,10 +30,12 @@ require_once 'partials/navigation.php';
             <th>Number of Moves to Complete This Stage</th>
           </tr>
           <tr>
-            <?php foreach ($stage['userScores'] as $player=>$score) { ?>
+            <?php foreach ($stage['userScores'] as $player => $score) { ?>
+            <tr>
               <td><?= $u->getCurrentUser($player)['username']; ?></td>
               <td><?= $score ?></td>
-            <?php } ?>
+            </tr>
+          <?php } ?>
           </tr>
         </table>
       </div>
