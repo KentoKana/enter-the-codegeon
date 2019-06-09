@@ -25,15 +25,23 @@ function validationMsg($input, $fieldName)
     }
 }
 
+// If userid session is set, get image for that user.
 if (isset($_SESSION['userid'])) {
     $u = new User($collection);
     $user = $u->getCurrentUser($_SESSION['userid']);
 
-    //Get Image Extension and Base64 Image 
     $userImage = $user['image'];
-    $userImage = explode(';', $userImage);
-    // userImage[0] is image extension
-    // userImage[1] is base64 encoded string
+    //If the user doesn't have an image (i.e. Default),
+    //The default userImgSrc image is public/images/user.png
+    //Else, userImgSrc will be the base64 image from the database.
+    if ($userImage === '' || (strlen($userImage) === 3 && $userImage === " ; ")) {
+        $userImgSrc = "public/images/user.png";
+    } else {
+        $userImage = explode(';', $userImage);
+        // userImage[0] is image extension
+        // userImage[1] is base64 encoded string
+        $userImgSrc = "data:image/" . $userImage[0] . ";base64, " . $userImage[1];
+    }
 }
 
 //Registration Controller
@@ -191,7 +199,7 @@ if (isset($_FILES['image'])) {
 
     // Get ext and base64 as one string separated by ;
     $file = $ext . " ; " . $file;
-    
+
     // Add Base64 image to MongoDB
     $u->addUserImage($file);
 
