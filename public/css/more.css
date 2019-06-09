@@ -20,6 +20,13 @@
 
 #result-modal {
 	display: none;
+	width: 50%;
+	height: 50%;
+	position: absolute;
+	top: 25%;
+	left: 25%;
+	background: #FFF;
+	z-index: 1;
 }
 
 /* Stage Picker */

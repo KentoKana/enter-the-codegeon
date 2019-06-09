@@ -5,6 +5,7 @@ if (!isset($_SESSION['userid'])) {
   header('location: index');
 }
 ?>
+
 <div class="profile__info">
   <h1>Welcome, <?= (string)$user->firstName ?></h1>
   <!-- Test Image File -->

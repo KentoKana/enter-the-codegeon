@@ -44,6 +44,7 @@ const pageInit = () => {
 	const undoButton = document.querySelector("#undo-button");
 	const quitButton = document.querySelector("#quit-button");
 	const stageInfo = document.querySelectorAll("input.stage-info");
+	const resultModal = document.querySelector("#result-modal");
 
 	let moves = [];
 	let listOfMoves = [];
@@ -107,6 +108,8 @@ const pageInit = () => {
 
 			moves = [];
 			listOfMoves = [];
+
+			resultModal.style.display = "block";
 		}
 	});
 

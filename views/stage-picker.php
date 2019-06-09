@@ -5,6 +5,7 @@ require_once 'partials/navigation.php';
 //   header('location: index');
 // }
 ?>
+
 <header class="block">
   <h1 class="charcoal">Select Your Challenge!</h1>
 </header>
