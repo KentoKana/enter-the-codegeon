@@ -12,11 +12,11 @@ require_once 'partials/navigation.php';
 <input type="hidden" id="obsCoords" class="stage-info" value="<?=$_SESSION['obsCoords']?>">
 <input type="hidden" id="solution" class="stage-info" value="<?=$_SESSION['solution']?>">
 
-  <header class="block">
-   <h1 id="score">Score:</h1>
-  </header>
-  <div id="playing-area"></div>
- <div id="coding-area">
+<header class="block">
+  <h1 id="score"><?=$_SESSION['stageName']?></h1>
+</header>
+<div id="playing-area"></div>
+<div id="coding-area">
   <div class="btn__block">
     <button id="turn-left" value="0" class="movement-buttons">Turn Left</button>
     <button id="move-forward" value="1" class="movement-buttons">Move Forward</button>
@@ -28,11 +28,17 @@ require_once 'partials/navigation.php';
     <button id="quit-button" class="action-buttons">Quit Game</button>
   </div>
   <div id="play">
-   <header>
-    <h2 class="charcoal">Actions</h2>
-   </header>
-   <div id="move-list"></div>
+    <header>
+      <h2 class="charcoal">Actions</h2>
+    </header>
+    <div id="move-list"></div>
   </div>
- </div>
+</div>
+
+<div id="result-modal">
+  <div id="result-score"></div>
+  <button id="retry-button" class="end-buttons">Retry</button>
+  <button id="return-button" class="end-buttons">Back to Stage Select</button>
+</div>
 <?php
 require_once 'partials/footer.php';

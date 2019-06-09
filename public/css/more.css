@@ -16,6 +16,12 @@
 	background: #FFF;
 }
 
+/* Result Modal */
+
+#result-modal {
+	display: none;
+}
+
 /* Stage Picker */
 
 #stage-form {
