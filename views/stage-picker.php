@@ -25,12 +25,14 @@ require_once 'partials/navigation.php';
             <h3>High Score</h3>
           </caption>
           <tr>
+            <th></th>
             <th>Player</th>
-            <th>Number of Moves to Complete This Stage</th>
+            <th>Moves</th>
           </tr>
           <tr>
             <?php foreach ($stage['userScores'] as $player => $score) { ?>
             <tr>
+              <td><img src="<?= $userImgSrc ?>" alt="User Profile" width="50"></td>
               <td><?= $u->getCurrentUser($player)['username']; ?></td>
               <td><?= $score ?></td>
             </tr>
