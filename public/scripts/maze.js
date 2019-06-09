@@ -24,10 +24,9 @@ function Maze() {
 		this.boardArray[this.winningSquare.row][this.winningSquare.column] = "win";
 
 		//Initialize Obstacles
-		obstacles.pop();
 		for(let obstacle of obstacles) {
 			if(!Array.isArray(obstacle)) obstacle = obstacle.split(',');
-			this.boardArray[obstacle[0]][obstacle[1]] = 'obs';
+			if(obstacle[0] !== "") this.boardArray[obstacle[0]][obstacle[1]] = 'obs';
 		}
 
 		this.canvasRefresh();
