@@ -19,10 +19,12 @@ const pageInit = () => {
 	const moveList = document.querySelector("#move-list");
 	const startButton = document.querySelector("#start-button");
 	const undoButton = document.querySelector("#undo-button");
+	const quitButton = document.querySelector("#quit-button");
 	const stageInfo = document.querySelectorAll("input.stage-info");
 
 	let moves = [];
 	let listOfMoves = [];
+	let optimalSolution = stageInfo[4].value;
 
 	mazeCanvas.initializeStage(stageInfo[1].value.split(','), stageInfo[2].value.split(','), 
 		stageInfo[3].value.split(';'));
@@ -57,8 +59,24 @@ const pageInit = () => {
 		let isDone = await mazeCanvas.movePlayer(moves);
 
 		if(isDone) {
-			// enableButtons([...moveButtons, startButton, undoButton]);
 			moveList.innerHTML = "Move List: ";
+
+			// Check if player won
+			if(mazeCanvas.didWin()) {
+				if(moves.length <= optimalSolution) {
+					alert("Three stars");
+				}
+				else if(moves.length > optimalSolution && moves.length <= optimalSolution * 1.5) {
+					alert("Two stars");
+				}
+				else {
+					alert("One star");
+				}
+			}
+			else {
+				alert("Scrubbed");
+			}
+
 			moves = [];
 			listOfMoves = [];
 		}

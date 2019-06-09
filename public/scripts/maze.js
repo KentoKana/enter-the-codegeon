@@ -209,5 +209,10 @@ function Maze() {
 		return true;
 	};
 
+	this.didWin = () => {
+		return (this.winningSquare.row === this.player.yPosition
+			&& this.winningSquare.column === this.player.xPosition);
+	}
+
 	this.canvasRefresh();
 }

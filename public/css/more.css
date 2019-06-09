@@ -11,6 +11,11 @@
 	flex: 1 0 0;
 }
 
+#coding-area .action-buttons:disabled, #coding-area .movement-buttons:disabled {
+	color: grey;
+	background: #FFF;
+}
+
 /* Stage Picker */
 
 #stage-form {
