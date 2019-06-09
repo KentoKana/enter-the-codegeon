@@ -8,9 +8,9 @@ if (!isset($_SESSION['userid'])) {
 <div class="profile__info">
   <h1>Welcome, <?= (string)$user->firstName ?></h1>
   <!-- Test Image File -->
-  <img src="public/images/user.png" alt="User Profile" width="100">
+  <img src="<?= "data:image/".$userImage[0].";base64, " . $userImage[1] ?>" alt="User Profile" width="200">
   <div>
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
       <div>
         <label for="user-immage">Change your profile picture: </label>
       </div>

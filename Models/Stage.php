@@ -102,11 +102,12 @@ class Stage
 
     public function getSolution()
     {
-        $solutionStr='';
-        foreach($this->pickedStage['solution'] as $move) {
-            $solutionStr .= "$move;";
-        }
-        return $solutionStr;
+        // $solutionStr='';
+        // foreach($this->pickedStage['solution'] as $move) {
+        //     $solutionStr .= "$move;";
+        // }
+        // return $solutionStr;
+        return count($this->pickedStage['solution']);
     }
 
     public function addStage($stageInfo)

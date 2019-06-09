@@ -127,12 +127,23 @@ class User
             'username' => $this->username,
             'email' => $this->email,
             'password' => $this->password,
+            'image' => '',
         ]);
 
         if ($record->getInsertedCount() == 1) {
             // insert the userid into session
             return $record->getInsertedId();
         }
+    }
+
+    public function addUserImage($file)
+    {
+        $this->collection->updateOne(
+            ['_id' => $this->currentUser['_id']],
+            ['$set' => [
+                'image'=> $file,
+            ]]
+        );
     }
 
     public function editUser()
@@ -148,7 +159,7 @@ class User
         );
 
         // If Password field is set, then
-        if($this->password) {
+        if ($this->password) {
             $this->collection->updateOne(
                 ['_id' => $this->currentUser['_id']],
                 ['$set' => [
@@ -163,6 +174,5 @@ class User
                 ]]
             );
         }
-
     }
 }

@@ -25,6 +25,17 @@ function validationMsg($input, $fieldName)
     }
 }
 
+if (isset($_SESSION['userid'])) {
+    $u = new User($collection);
+    $user = $u->getCurrentUser($_SESSION['userid']);
+
+    //Get Image Extension and Base64 Image 
+    $userImage = $user['image'];
+    $userImage = explode(';', $userImage);
+    // userImage[0] is image extension
+    // userImage[1] is base64 encoded string
+}
+
 //Registration Controller
 if (isset($_POST['submitRegister'])) {
 
@@ -35,8 +46,11 @@ if (isset($_POST['submitRegister'])) {
     $u->setUsername($_POST['username']);
     $u->setRegisterPassword($_POST['password'], $_POST['passwordConfirm']);
     $u->setEmail($_POST['email']);
+
     if ($_POST['password'] === '') {
         $userInfo['initialPass'] = false;
+    } else {
+        $userInfo['initialPass'] = $_POST['password'];
     }
 
     // Get User Info
@@ -63,7 +77,8 @@ if (isset($_POST['submitRegister'])) {
             $addedUserId = $u->addUser();
             $_SESSION['userid'] = $addedUserId;
         } else {
-            $errorMsg .= 'Please review the form and try again<br>';
+            var_dump($_POST['password']);
+            $errorMsg .= 'Please review the form and try again.<br>';
         }
     }
 }
@@ -154,5 +169,32 @@ if (isset($_POST['submitUserEdit'])) {
         return $errorMsg = 'Please review the form and try again';
     }
 
+    header('Location: profile');
+}
+
+// Image uploading
+if (isset($_FILES['image'])) {
+    $u = new User($collection);
+    $id = $_SESSION['userid'];
+    // search the user
+    $user = $u->getCurrentUser($id);
+    $ext = '';
+    if ($_FILES['image']['error'] == 0) {
+        $name = $_FILES["image"]["name"];
+        $explodedStr = explode(".", $name);
+        // get file extension of image being uploaded
+        $ext = end($explodedStr);
+        $file = base64_encode(file_get_contents($_FILES['image']['tmp_name']));
+    } else {
+        $file = '';
+    }
+
+    // Get ext and base64 as one string separated by ;
+    $file = $ext . " ; " . $file;
+    
+    // Add Base64 image to MongoDB
+    $u->addUserImage($file);
+
+    // Prevent multiple image submission
     header('Location: profile');
 }
