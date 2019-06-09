@@ -26,7 +26,7 @@ function Maze() {
 		//Initialize Obstacles
 		obstacles.pop();
 		for(let obstacle of obstacles) {
-			obstacle = obstacle.split(',');
+			if(!Array.isArray(obstacle)) obstacle = obstacle.split(',');
 			this.boardArray[obstacle[0]][obstacle[1]] = 'obs';
 		}
 
@@ -102,12 +102,12 @@ function Maze() {
 		};
 	};
 
-	this.renderObstacles = function (boardArray) {
-		for (let i = 0; i < boardArray.length; i++) {
-			let innerArray = boardArray[i];
+	this.renderObstacles = () => {
+		for (let i = 0; i < this.boardArray.length; i++) {
+			let innerArray = this.boardArray[i];
 			for (let j = 0; j < innerArray.length; j++) {
-				this.context.fillStyle = "orange";
-				if (boardArray[i][j] === "obs") {
+				this.context.fillStyle = "red";
+				if (this.boardArray[i][j] === "obs") {
 					this.context.fillRect(
 						j * this.gridSize,
 						i * this.gridSize,
@@ -130,12 +130,17 @@ function Maze() {
 	};
 
 	// method used to resize the canvas and redraw the grid accordingly
-	this.canvasRefresh = function () {
-		if (window.innerWidth < 1200) {
-			this.canvas.width = window.innerHeight / 1.5 < window.innerWidth / 2 ? window.innerHeight / 1.5 : window.innerWidth / 2;
+	this.canvasRefresh = function (customWidth = null) {
+		if(customWidth) {
+			this.canvas.width = customWidth;
 		}
 		else {
-			this.canvas.width = window.innerHeight / 1.5 < 600 ? window.innerHeight / 1.5 : 600;
+			if (window.innerWidth < 1200) {
+				this.canvas.width = window.innerHeight / 1.5 < window.innerWidth / 2 ? window.innerHeight / 1.5 : window.innerWidth / 2;
+			}
+			else {
+				this.canvas.width = window.innerHeight / 1.5 < 600 ? window.innerHeight / 1.5 : 600;
+			}
 		}
 
 		this.gridSize = this.canvas.width / this.widthInTiles;

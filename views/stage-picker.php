@@ -9,16 +9,21 @@ require_once 'partials/navigation.php';
   <h1 class="charcoal">Select Your Challenge!</h1>
 </header>
 <div class="block">
-  <form action="./play" method="POST">
+  <form id="stage-form" action="./play" method="POST">
     <?php
-    // Iterate through all stage items.
-    foreach ($allStages as $stage) {
-      ?>
-      <button type="submit" name="stageId" value="<?= $stage['_id']; ?>"> <?= $stage['stageName']; ?> </button>
+      // Iterate through all stage items.
+      foreach ($allStages as $stage) {
+    ?>
+
+    <button class="stage-button" type="submit" name="stageId" value="<?= $stage['_id']; ?>">
+      <!-- <canvas class="stage-preview"></canvas> -->
+      <h3><?= $stage['stageName']; ?></h3>
+    </button>
+
     <?php
-  }
-  // Once user chooses stage, send the stageId to play.php
-  ?>
+      }
+      // Once user chooses stage, send the stageId to play.php
+    ?>
   </form>
 </div>
 <?php
