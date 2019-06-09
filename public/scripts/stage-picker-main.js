@@ -14,6 +14,7 @@ let enableButtons = (buttons) => {
 
 const pageInit = () => {
 	const stageButtons = document.querySelectorAll("button.stage-button");
+
 	disableButtons(stageButtons);
 	let mazeCanvases = [];
 
@@ -25,6 +26,7 @@ const pageInit = () => {
 				if (xhr.status === 200) {
 					const response = JSON.parse(xhr.responseText);
 					const mazeCanvas = new Maze();
+					const stageScore = document.createElement("div");
 
 					mazeCanvas.initializeStage(
 						response['startPosition'],
@@ -37,6 +39,14 @@ const pageInit = () => {
 					button.appendChild(mazeCanvas.canvas);
 
 					mazeCanvases.push(mazeCanvas);
+
+					for(let i=1; i<=3; i++) {
+						stageScore.innerHTML += (i <= response['stars']) ?
+							'<span class="fa fa-star checked"></span>' :
+							'<span class="fa fa-star"></span>';
+					}
+
+					button.appendChild(stageScore);
 
 					if(mazeCanvases.length === stageButtons.length) {
 						enableButtons(stageButtons);

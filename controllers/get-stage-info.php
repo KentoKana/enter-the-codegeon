@@ -3,12 +3,15 @@ session_start();
 
 require_once '../vendor/autoload.php';
 require_once '../Models/Stage.php';
+require_once '../Models/User.php';
 
 $input = file_get_contents("php://input");
 
 $client = new MongoDB\Client(env('MONGO_URI'));
-$collection = $client->codegen->mazeStages;
-$stage = new Stage($collection);
+$userCollection = $client->codegen->users;
+$user = new User($userCollection);
+$stageCollection = $client->codegen->mazeStages;
+$stage = new Stage($stageCollection);
 
 $inputData = json_decode($input);
 
@@ -18,8 +21,21 @@ $startPos = $stageInfo->startPosition;
 $goalPos = $stageInfo->goalPosition;
 $obstacles = $stageInfo->obstacles;
 
+if (isset($_SESSION['userid'])) {
+	$user->getCurrentUser($_SESSION['userid']);
+	$completedStages = $user->getCompletedStages();
+
+	if(isset($completedStages[$inputData->stageId])) {
+		$stars = $completedStages[$inputData->stageId];
+	}
+	else {
+		$stars = 0;
+	}
+}
+
 echo json_encode(array(
 	'startPosition' => $startPos,
 	'goalPosition' => $goalPos,
-	'obstacles' => $obstacles
+	'obstacles' => $obstacles,
+	'stars' => $stars
 ));

@@ -49,3 +49,7 @@
 	cursor: pointer;
 	padding: 0;
 }
+
+.stage-button .checked {
+	color: orange;
+}

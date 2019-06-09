@@ -17,7 +17,6 @@ require_once 'partials/navigation.php';
       ?>
 
       <button class="stage-button" type="submit" name="playStage" value="<?= $stage['_id']; ?>">
-        <!-- <canvas class="stage-preview"></canvas> -->
         <h3><?= $stage['stageName']; ?></h3>
       </button>
       <div>
