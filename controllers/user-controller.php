@@ -26,7 +26,7 @@ function validationMsg($input, $fieldName)
 }
 
 // If userid session is set, get image for that user.
-if (isset($_SESSION['userid'])) {
+if (isset($_SESSION['userid']) && ($page == "stage-picker" || $page == "profile")) {
     $u = new User($collection);
     $user = $u->getCurrentUser($_SESSION['userid']);
 
