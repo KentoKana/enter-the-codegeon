@@ -25,22 +25,23 @@ function validationMsg($input, $fieldName)
     }
 }
 
-// If userid session is set, get image for that user.
-if (isset($_SESSION['userid']) && ($page == "stage-picker" || $page == "profile")) {
+// Gets userImage based on Id.
+function getUserImage($collection, $player)
+{
     $u = new User($collection);
-    $user = $u->getCurrentUser($_SESSION['userid']);
-
+    $user = $u->getCurrentUser($player);
     $userImage = $user['image'];
+
     //If the user doesn't have an image (i.e. Default),
     //The default userImgSrc image is public/images/user.png
     //Else, userImgSrc will be the base64 image from the database.
-    if ($userImage === '' || (strlen($userImage) === 3 && $userImage === " ; ")) {
-        $userImgSrc = "public/images/user.png";
+    if ($userImage === '' || ((strlen($userImage) === 3 && $userImage === " ; "))) {
+        return $userImgSrc = "public/images/user.png";
     } else {
         $userImage = explode(';', $userImage);
         // userImage[0] is image extension
         // userImage[1] is base64 encoded string
-        $userImgSrc = "data:image/" . $userImage[0] . ";base64, " . $userImage[1];
+        return $userImgSrc = "data:image/" . $userImage[0] . ";base64, " . $userImage[1];
     }
 }
 

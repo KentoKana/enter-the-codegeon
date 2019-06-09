@@ -32,7 +32,7 @@ require_once 'partials/navigation.php';
           <tr>
             <?php foreach ($stage['userScores'] as $player => $score) { ?>
             <tr>
-              <td><img src="<?= $userImgSrc ?>" alt="User Profile" width="50"></td>
+              <td><img src="<?= getUserImage($client->codegen->users, $player) ?>" alt="User Profile" width="50"></td>
               <td><?= $u->getCurrentUser($player)['username']; ?></td>
               <td><?= $score ?></td>
             </tr>
