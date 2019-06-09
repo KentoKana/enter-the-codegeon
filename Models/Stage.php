@@ -114,4 +114,39 @@ class Stage
     {
         return $this->collection->insertOne($stageInfo);
     }
+
+    // Add a new user and their high score to this stage
+    public function addUserScore($userId, $moves) {
+        $userScores = $this->getUserScores();
+
+        if(isset($userScores[$userId])) {
+            if($userScores[$userId] > $moves) {
+                $userScores[$userId] = $moves;
+                $this->collection->updateOne(
+                    ['_id' => $this->pickedStage['_id']],
+                    ['$set' => [
+                        'userScores' => $userScores,
+                    ]]
+                );
+            }
+        }
+        else {
+            $userScores[$userId] = $moves;
+            $this->collection->updateOne(
+                ['_id' => $this->pickedStage['_id']],
+                ['$set' => [
+                    'userScores' => $userScores,
+                ]]
+            );
+        }
+    }
+
+    // Return an array of users who completed this stage and their scores
+    public function getUserScores() {
+        $userScores = $this->collection->findOne(
+            ['_id' => new MongoDB\BSON\ObjectID($this->pickedStage['_id'])]
+        )->userScores;
+
+        return $userScores;
+    }
 }

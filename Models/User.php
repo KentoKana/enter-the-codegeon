@@ -175,4 +175,39 @@ class User
             );
         }
     }
+
+    public function addStageCompleted($stageId, $stars)
+    {
+        $completedStages = $this->getCompletedStages();
+
+        if(isset($completedStages[$stageId])) {
+            if($completedStages[$stageId] < $stars) {
+                $completedStages[$stageId] = $stars;
+                $this->collection->updateOne(
+                    ['_id' => $this->currentUser['_id']],
+                    ['$set' => [
+                        'completedStages' => $completedStages,
+                    ]]
+                );
+            }
+        }
+        else {
+            $completedStages[$stageId] = $stars;
+            $this->collection->updateOne(
+                ['_id' => $this->currentUser['_id']],
+                ['$set' => [
+                    'completedStages' => $completedStages,
+                ]]
+            );
+        }
+    }
+
+    public function getCompletedStages()
+    {
+        $completedStages = $this->collection->findOne(
+            ['_id' => new MongoDB\BSON\ObjectID($this->currentUser['_id'])]
+        )->completedStages;
+
+        return $completedStages;
+    }
 }

@@ -12,6 +12,8 @@ $stage = new Stage($collection);
 
 $inputData = json_decode($input);
 
+$inputData->userScores = new StdClass;
+
 $stage->addStage($inputData);
 
 echo 'Stage Added';

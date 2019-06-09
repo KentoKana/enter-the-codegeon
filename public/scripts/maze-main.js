@@ -12,6 +12,29 @@ let enableButtons = (buttons) => {
 	}
 }
 
+let stageWin = (stageId, stars, moves) => {
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function(){
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200) {
+				console.log(xhr.responseText);
+			}
+			else {
+				alert("Connection was unsuccessful");
+			}
+		}
+	}
+
+	xhr.open('POST', 'controllers/stage-win.php');
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.send(JSON.stringify({
+		stageId: stageId,
+		stars: stars,
+		moves: moves
+	}));
+}
+
 const pageInit = () => {
 	const playingArea = document.querySelector("#playing-area");
 	const mazeCanvas = new Maze();
@@ -63,15 +86,20 @@ const pageInit = () => {
 
 			// Check if player won
 			if(mazeCanvas.didWin()) {
+				let stars;
 				if(moves.length <= optimalSolution) {
 					alert("Three stars");
+					stars = 3;
 				}
 				else if(moves.length > optimalSolution && moves.length <= optimalSolution * 1.5) {
 					alert("Two stars");
+					stars = 2;
 				}
 				else {
 					alert("One star");
+					stars = 1;
 				}
+				stageWin(stageInfo[0].value, stars, moves.length);
 			}
 			else {
 				alert("Scrubbed");
