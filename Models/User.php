@@ -18,10 +18,10 @@ class User
     // Setters and Getters
     public function setFirstName($firstName)
     {
-        if ($firstName == '') {
-            return false;
+        if ($firstName == '' || empty($firstName)) {
+            $this->$firstName = false;
         } else {
-            return $this->firstName = $firstName;
+            $this->firstName = $firstName;
         }
     }
     public function getFirstName()
@@ -32,9 +32,9 @@ class User
     public function setLastName($lastName)
     {
         if ($lastName == '') {
-            return false;
+            $this->lastName = false;
         } else {
-            return $this->lastName = $lastName;
+            $this->lastName = $lastName;
         }
     }
     public function getLastName()
@@ -45,9 +45,9 @@ class User
     public function setUsername($username)
     {
         if ($username == '') {
-            return false;
+            $this->username = false;
         } else {
-            return $this->username = $username;
+            $this->username = $username;
         }
     }
     public function getUsername()
@@ -62,10 +62,10 @@ class User
             $passConfirm == '' ||
             $password != $passConfirm
         ) {
-            return false;
+            $this->password = false;
         } else {
             $hashedPass = password_hash($passConfirm, PASSWORD_DEFAULT);
-            return $this->password = $hashedPass;
+            $this->password = $hashedPass;
         }
     }
     public function getRegisterPassword()
@@ -90,7 +90,7 @@ class User
     public function setLoginPass($password)
     {
         if ($password == '') {
-            return false;
+            $this->password = false;
         } else {
             return $this->password = $password;
         }
@@ -103,9 +103,9 @@ class User
     public function setEmail($email)
     {
         if ($email == '' || filter_var($email, FILTER_VALIDATE_EMAIL) == false) {
-            return false;
+            $this->email = false;
         } else {
-            return $this->email = $email;
+            $this->email = $email;
         }
     }
     public function getEmail()
