@@ -45,6 +45,9 @@ const pageInit = () => {
 	const quitButton = document.querySelector("#quit-button");
 	const stageInfo = document.querySelectorAll("input.stage-info");
 	const resultModal = document.querySelector("#result-modal");
+	const resultScore = document.querySelector("#result-score");
+	const retryButton = document.querySelector("#retry-button");
+	const returnButton = document.querySelector("#return-button");
 
 	let moves = [];
 	let listOfMoves = [];
@@ -83,27 +86,25 @@ const pageInit = () => {
 		let isDone = await mazeCanvas.movePlayer(moves);
 
 		if(isDone) {
-			moveList.innerHTML = "Move List: ";
-
 			// Check if player won
 			if(mazeCanvas.didWin()) {
 				let stars;
 				if(moves.length <= optimalSolution) {
-					alert("Three stars");
+					resultScore.innerHTML = "Score: 3 Stars";
 					stars = 3;
 				}
 				else if(moves.length > optimalSolution && moves.length <= optimalSolution * 1.5) {
-					alert("Two stars");
+					resultScore.innerHTML = "Score: 2 Stars";
 					stars = 2;
 				}
 				else {
-					alert("One star");
+					resultScore.innerHTML = "Score: 1 Star";
 					stars = 1;
 				}
 				stageWin(stageInfo[0].value, stars, moves.length);
 			}
 			else {
-				alert("Scrubbed");
+				resultScore.innerHTML = "You lost! Please Try Again.";
 			}
 
 			moves = [];
@@ -117,6 +118,14 @@ const pageInit = () => {
 		moves.pop();
 		listOfMoves.pop();
 		moveList.innerHTML = "Move List: <br/>" + listOfMoves.join('<br/>');
+	});
+
+	retryButton.addEventListener('mouseup', () => {
+		window.location = "";
+	});
+
+	returnButton.addEventListener('mouseup', () => {
+		window.location = "stage-picker";
 	});
 }
 
