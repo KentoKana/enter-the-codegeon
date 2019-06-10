@@ -127,6 +127,12 @@ const pageInit = () => {
 	returnButton.addEventListener('mouseup', () => {
 		window.location = "stage-picker";
 	});
+
+	quitButton.addEventListener('mouseup', () => {
+		let exit = confirm("Are you sure you want to quit?");
+
+		if(exit) window.location = "stage-picker";
+	});
 }
 
 window.onload = pageInit;

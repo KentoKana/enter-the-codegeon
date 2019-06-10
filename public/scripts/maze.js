@@ -6,6 +6,30 @@ function Maze() {
 		this.boardArray[i] = new Array(this.widthInTiles);
 	}
 
+	// Canvas background
+    this.canvasBackground = new Image();
+    this.canvasBackground.src = "public/images/etc.png";
+
+    // Crate image
+    this.crateImage = new Image();
+    this.crateImage.src = "public/images/box.png";
+
+    // Treasure image
+    this.treasureImage = new Image();
+    this.treasureImage.src = "public/images/treasure.png";
+
+	this.canvasBackground.onload = () => {
+		this.canvasRefresh();
+	};
+
+	this.crateImage.onload = () => {
+		this.canvasRefresh();
+	};
+
+	this.treasureImage.onload = () => {
+		this.canvasRefresh();
+	};
+
 	this.moveDelay = 250;
 
 	// Function to initialize the stage
@@ -107,7 +131,8 @@ function Maze() {
 			for (let j = 0; j < innerArray.length; j++) {
 				this.context.fillStyle = "red";
 				if (this.boardArray[i][j] === "obs") {
-					this.context.fillRect(
+					this.context.drawImage(
+						this.crateImage,
 						j * this.gridSize,
 						i * this.gridSize,
 						this.gridSize,
@@ -120,7 +145,8 @@ function Maze() {
 
 	this.renderWinningSquare = () => {
 		this.context.fillStyle = "blue";
-		this.context.fillRect(
+		this.context.drawImage(
+			this.treasureImage,
 			this.winningSquare.column * this.gridSize,
 			this.winningSquare.row * this.gridSize,
 			this.gridSize,
@@ -149,7 +175,9 @@ function Maze() {
 
 		this.canvas.height = this.gridSize * this.heightInTiles;
 
-		this.drawGrid();
+		this.renderBackground();
+
+		// this.drawGrid();
 
 		this.renderObstacles(this.boardArray);
 
@@ -212,6 +240,17 @@ function Maze() {
 	this.didWin = () => {
 		return (this.winningSquare.row === this.player.yPosition
 			&& this.winningSquare.column === this.player.xPosition);
+	}
+
+	// Render the background on the canvas
+	this.renderBackground = function() {
+		this.context.drawImage(
+			this.canvasBackground,
+			0,
+			0,
+			this.canvas.width,
+			this.canvas.height
+		);
 	}
 
 	this.canvasRefresh();

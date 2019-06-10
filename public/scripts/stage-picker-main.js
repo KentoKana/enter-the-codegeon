@@ -34,6 +34,18 @@ const pageInit = () => {
 						response['obstacles']
 					);
 
+					mazeCanvas.canvasBackground.onload = () => {
+						mazeCanvas.canvasRefresh(button.clientWidth * 0.90);
+					};
+					
+					mazeCanvas.crateImage.onload = () => {
+						mazeCanvas.canvasRefresh(button.clientWidth * 0.90);
+					};
+
+					mazeCanvas.treasureImage.onload = () => {
+						mazeCanvas.canvasRefresh(button.clientWidth * 0.90);
+					};
+
 					mazeCanvas.canvasRefresh(button.clientWidth * 0.90);
 
 					button.appendChild(mazeCanvas.canvas);
