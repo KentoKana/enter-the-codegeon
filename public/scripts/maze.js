@@ -129,7 +129,6 @@ function Maze() {
 		for (let i = 0; i < this.boardArray.length; i++) {
 			let innerArray = this.boardArray[i];
 			for (let j = 0; j < innerArray.length; j++) {
-				this.context.fillStyle = "red";
 				if (this.boardArray[i][j] === "obs") {
 					this.context.drawImage(
 						this.crateImage,
@@ -144,7 +143,6 @@ function Maze() {
 	};
 
 	this.renderWinningSquare = () => {
-		this.context.fillStyle = "blue";
 		this.context.drawImage(
 			this.treasureImage,
 			this.winningSquare.column * this.gridSize,

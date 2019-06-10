@@ -6,6 +6,30 @@ function MazeBuilder() {
 	this.hasPlayer = false;
 	this.hasGoal = false;
 
+	// Canvas background
+    this.canvasBackground = new Image();
+    this.canvasBackground.src = "public/images/etc.png";
+
+    // Crate image
+    this.crateImage = new Image();
+    this.crateImage.src = "public/images/box.png";
+
+    // Treasure image
+    this.treasureImage = new Image();
+    this.treasureImage.src = "public/images/treasure.png";
+
+	this.canvasBackground.onload = () => {
+		this.canvasRefresh();
+	};
+
+	this.crateImage.onload = () => {
+		this.canvasRefresh();
+	};
+
+	this.treasureImage.onload = () => {
+		this.canvasRefresh();
+	};
+
 	this.boardArray = new Array(this.heightInTiles);
 	for(let i=0; i<this.boardArray.length; i++) {
 		this.boardArray[i] = new Array(this.widthInTiles);
@@ -20,14 +44,14 @@ function MazeBuilder() {
 		this.context.fillRect(gridX * this.gridSize, gridY * this.gridSize, this.gridSize, this.gridSize);
 	};
 
-	this.renderObstacles = function(boardArray) {
-		for(let i=0; i<boardArray.length; i++) {
-			let innerArray = boardArray[i];
-			for(let j=0; j<innerArray.length; j++) {
-				this.context.fillStyle = "red";
-				if(boardArray[i][j] === "obs") {
-					this.context.fillRect(
-						j * this.gridSize, 
+	this.renderObstacles = () => {
+		for (let i = 0; i < this.boardArray.length; i++) {
+			let innerArray = this.boardArray[i];
+			for (let j = 0; j < innerArray.length; j++) {
+				if (this.boardArray[i][j] === "obs") {
+					this.context.drawImage(
+						this.crateImage,
+						j * this.gridSize,
 						i * this.gridSize,
 						this.gridSize,
 						this.gridSize
@@ -38,9 +62,9 @@ function MazeBuilder() {
 	};
 
 	this.renderWinningSquare = () => {
-		this.context.fillStyle = "blue";
-		this.context.fillRect(
-			this.winningSquare.column * this.gridSize, 
+		this.context.drawImage(
+			this.treasureImage,
+			this.winningSquare.column * this.gridSize,
 			this.winningSquare.row * this.gridSize,
 			this.gridSize,
 			this.gridSize
@@ -63,7 +87,9 @@ function MazeBuilder() {
 
 		this.canvas.height = this.gridSize * this.heightInTiles;
 
-		this.drawGrid();
+		this.renderBackground();
+
+		// this.drawGrid();
 
 		this.renderObstacles(this.boardArray);
 
@@ -339,6 +365,17 @@ function MazeBuilder() {
 			}
 		}
 	};
+
+	// Render the background on the canvas
+	this.renderBackground = function() {
+		this.context.drawImage(
+			this.canvasBackground,
+			0,
+			0,
+			this.canvas.width,
+			this.canvas.height
+		);
+	}
 
 	this.canvasRefresh();
 }
