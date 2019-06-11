@@ -30,6 +30,11 @@ function Maze() {
 		this.canvasRefresh();
 	};
 
+	this.backgroundMusic = new Audio("public/audio/patakas-world.wav");
+	this.backgroundMusic.loop = true;
+
+	this.bumpSound = new Audio("public/audio/collision.wav");
+
 	this.moveDelay = 250;
 
 	// Function to initialize the stage
@@ -159,10 +164,10 @@ function Maze() {
 		}
 		else {
 			if (window.innerWidth < 1200) {
-				this.canvas.width = window.innerHeight / 1.5 < window.innerWidth / 2 ? window.innerHeight / 1.5 : window.innerWidth / 2;
+				this.canvas.width = window.innerHeight < window.innerWidth / 2 ? window.innerHeight : window.innerWidth / 2;
 			}
 			else {
-				this.canvas.width = window.innerHeight / 1.5 < 600 ? window.innerHeight / 1.5 : 600;
+				this.canvas.width = window.innerHeight < 600 ? window.innerHeight : 600;
 			}
 		}
 
@@ -225,6 +230,7 @@ function Maze() {
 					break;
 				case "1":
 					await this.player.move();
+					this.bumpSound.play();
 					break;
 				case "2":
 					await this.rotatePlayer(0);

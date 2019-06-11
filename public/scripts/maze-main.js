@@ -49,6 +49,10 @@ const pageInit = () => {
 	const retryButton = document.querySelector("#retry-button");
 	const returnButton = document.querySelector("#return-button");
 
+	const buttonPressSound = new Audio('public/audio/button-press.wav');
+	const undoSound = new Audio('public/audio/button-undo.wav');
+	const startSound = new Audio('public/audio/run.wav');
+
 	let moves = [];
 	let listOfMoves = [];
 	let optimalSolution = stageInfo[4].value;
@@ -62,8 +66,11 @@ const pageInit = () => {
 		mazeCanvas.canvasRefresh();
 	};
 
+	mazeCanvas.backgroundMusic.play();
+
 	for(let button of moveButtons) {
 		button.addEventListener('mouseup', (e) => {
+			buttonPressSound.play();
 			moves.push(e.target.value);
 			switch(e.target.value) {
 				case "0":
@@ -81,6 +88,7 @@ const pageInit = () => {
 	}
 
 	startButton.addEventListener('mouseup', async () => {
+		startSound.play();
 		disableButtons([...moveButtons, startButton, undoButton]);
 
 		let isDone = await mazeCanvas.movePlayer(moves);
@@ -115,6 +123,7 @@ const pageInit = () => {
 	});
 
 	undoButton.addEventListener('mouseup', () => {
+		undoSound.play();
 		moves.pop();
 		listOfMoves.pop();
 		moveList.innerHTML = "Move List: <br/>" + listOfMoves.join('<br/>');
