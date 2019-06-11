@@ -331,6 +331,10 @@ div[class^="profile"] {
   }
 }
 
+#coding-area.builder {
+  flex-flow: column;
+}
+
 #start-button:before {
   content: "8";
 }

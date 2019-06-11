@@ -10,7 +10,7 @@ if(!isset($_SESSION['userid'])){
   <div id="message-area">Start building your stage!</div>
 </header>
 <div id="playing-area"></div>
-<div id="coding-area">
+<div id="coding-area" class="builder">
   <h2>Options</h2>
   <div id="builder-options">
     <div class="option-row">
@@ -35,8 +35,8 @@ if(!isset($_SESSION['userid'])){
       <span>Remove</span>
     </div>
 
-    <button id="check-solution">Check for Solution</button>
-    <button id="submit-stage" disabled>Build Stage!</button>
+    <button class="flat-btn" id="check-solution">Check for Solution</button>
+    <button class="flat-btn" id="submit-stage" disabled="true">Build Stage!</button>
   </div>
 </div>
 <?php

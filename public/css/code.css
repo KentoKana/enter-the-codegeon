@@ -303,6 +303,10 @@ div[class^=profile] {
   padding-left: 10px;
 }
 
+#coding-area.builder {
+  flex-flow: column;
+}
+
 #start-button:before {
   content: "8";
 }
