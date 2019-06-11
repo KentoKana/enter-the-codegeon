@@ -5,34 +5,6 @@ require_once 'partials/navigation.php';
 //   header('location: index');
 // }
 ?>
-<style media="screen">
-  .stage-button {max-width: 100%; width: 100%;flex: 1 100%;}
-  .stage {
-    flex: 1 0 0;
-    display: flex;
-    align-items: flex-start;
-    max-width: 50%;
-  }
-
-  .stage-link,
-  .stage-description {
-    flex: 1 50%;
-    padding: 20px;
-  }
-
-  .stage-description td {word-break: break-word;}
-
-  #challenge-canvas {width: 100%;}
-
-  .stage-description table{ margin: auto;}
-
-  #stage-form .flex-wrapper {
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex: 1 100%;
-    margin: 20px auto;
-  }
-</style>
 <header class="block">
   <h1 class="charcoal">Select Your Challenge!</h1>
 </header>

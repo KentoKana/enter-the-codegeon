@@ -55,6 +55,10 @@ body {
   font-family: $body-font;
 }
 
+button {
+  cursor: pointer;
+}
+
 a {
   font-family: $body-font;
 }
@@ -283,6 +287,68 @@ div[class^="profile"] {
   &::-webkit-scrollbar-thumb {
     background-color: $charcoal;
     border-radius: 20px;
+  }
+}
+
+.stage {
+  @extend %with-bg_border;
+  flex: 1 0 0;
+  display: flex;
+  align-items: flex-start;
+  max-width: 50%;
+  margin-right: 20px;
+
+  h3 {
+    color: $charcoal;
+  }
+
+  .fa-star {
+    color: yellow;
+    font-size: 1.5em;
+    margin-top: 12px;
+    margin-left: 5px;
+  }
+
+  .stage-button {
+    background-color: transparent;
+    max-width: 100%;
+    width: 100%;
+    flex: 1 100%;
+  }
+
+  .stage-link,
+  .stage-description {
+    flex: 1 50%;
+    padding: 20px;
+  }
+
+  .stage-description {
+    table {
+      margin: auto;
+      background-color: #ffd275;
+      padding: 10px;
+      border-radius: 10px;
+      border: 2px solid;
+      
+      td{
+        word-break: break-word;
+        padding: 0 4px;
+        img{
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}
+
+#challenge-canvas {width: 100%;}
+
+#stage-form {
+  .flex-wrapper {
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex: 1 100%;
+    margin: 20px auto;
   }
 }
 
