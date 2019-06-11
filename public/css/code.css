@@ -218,6 +218,12 @@ h6 {
   display: inline-flex;
 }
 
+.profile__achievements img {
+  border: 2px solid #534b3c;
+  background-color: #ffd275;
+  padding: 1px;
+}
+
 .profile__playGame {
   display: flex;
   flex-flow: column;
@@ -295,6 +301,10 @@ div[class^=profile] {
 #coding-area .action-buttons:after,
 #coding-area .movement-buttons:after {
   padding-left: 10px;
+}
+
+#coding-area.builder {
+  flex-flow: column;
 }
 
 #start-button:before {
