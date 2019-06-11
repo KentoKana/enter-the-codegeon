@@ -20,6 +20,7 @@ $stageInfo = $stage->getPickedStage($inputData->stageId);
 $startPos = $stageInfo->startPosition;
 $goalPos = $stageInfo->goalPosition;
 $obstacles = $stageInfo->obstacles;
+$stars = 0;
 
 if (isset($_SESSION['userid'])) {
 	$user->getCurrentUser($_SESSION['userid']);
@@ -27,9 +28,6 @@ if (isset($_SESSION['userid'])) {
 
 	if(isset($completedStages[$inputData->stageId])) {
 		$stars = $completedStages[$inputData->stageId];
-	}
-	else {
-		$stars = 0;
 	}
 }
 

@@ -133,6 +133,7 @@ class User
             'email' => $this->email,
             'password' => $this->password,
             'image' => '',
+            'completedStages' => new StdClass
         ]);
 
         if ($record->getInsertedCount() == 1) {
