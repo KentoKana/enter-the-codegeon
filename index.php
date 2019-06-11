@@ -19,6 +19,7 @@ for($i = 0; $i < count($vars); $i += 2)
 {
   $_GET[$vars[$i]] = $vars[$i + 1];
 }
+
 require_once './vendor/autoload.php';
 require_once './controllers/user-controller.php';
 require_once './controllers/stage-controller.php';
