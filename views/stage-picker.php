@@ -34,13 +34,18 @@ if(!isset($_SESSION['userid'])){
                 <th>Moves</th>
               </tr>
               <tr>
-                <?php foreach ($stage['userScores'] as $player => $score ) { ?>
+                <?php
+                $count = 0; 
+                foreach ($stage['userScores'] as $player => $score ) {
+                    if($count === 3) break; ?>
                     <tr>
                       <td><img src="<?= getUserImage($client->codegen->users, $player) ?>" alt="User Profile" width="50"></td>
                       <td><?= $u->getCurrentUser($player)['username']; ?></td>
                       <td><?= $score ?></td>
                     </tr>
-                <?php } ?>
+                <?php 
+                    $count++;
+                } ?>
               </tr>
             </table>
           </div>
