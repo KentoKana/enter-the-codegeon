@@ -214,5 +214,5 @@ if (isset($_POST['deleteProfile'])) {
     $u->deleteUser($_SESSION['userid']);
 
     session_destroy();
-    header('Location: index');
+    header('Location: ./');
 }
