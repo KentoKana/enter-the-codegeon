@@ -49,7 +49,11 @@ if (!isset($_SESSION['userid'])) {
     echo "<div class='achievements__item'>$item</div>";
   }
   ?>
+  <form action="" method="POST">
+    <button type="submit" name="deleteProfile"> Delete Your Profile</button>
+  </form>
 
 </div>
+
 <?php
 require_once 'partials/footer.php';

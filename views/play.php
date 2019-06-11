@@ -1,9 +1,9 @@
 <?php
 require_once 'partials/header.php';
 require_once 'partials/navigation.php';
-// if(!isset($_SESSION['userid'])){
-//   header('location: index');
-// }
+if(!isset($_SESSION['userid'])){
+  header('location: index');
+}
 ?>
 <!-- Retrieve Coordinates to generate challenge -->
 <input type="hidden" id="stageId" class="stage-info" value="<?=$_SESSION['stageId']?>">

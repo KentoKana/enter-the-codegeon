@@ -124,7 +124,7 @@ if (isset($_POST['submitLogin'])) {
     }
 
     if (isset($_SESSION['userid'])) {
-        header('location: ./profile.php');
+        header('location: profile');
     }
 }
 
@@ -206,4 +206,13 @@ if (isset($_FILES['image'])) {
 
     // Prevent multiple image submission
     header('Location: profile');
+}
+
+// Delete Controller
+if (isset($_POST['deleteProfile'])) {
+    $u = new User($collection);
+    $u->deleteUser($_SESSION['userid']);
+
+    session_destroy();
+    header('Location: index');
 }

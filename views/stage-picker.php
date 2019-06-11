@@ -1,9 +1,9 @@
 <?php
 require_once 'partials/header.php';
 require_once 'partials/navigation.php';
-// if(!isset($_SESSION['userid'])){
-//   header('location: index');
-// }
+if(!isset($_SESSION['userid'])){
+  header('location: index');
+}
 ?>
 <style media="screen">
   .stage-button {max-width: 100%; width: 100%;flex: 1 100%;}
