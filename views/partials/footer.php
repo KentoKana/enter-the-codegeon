@@ -23,5 +23,20 @@
       <script src="public/scripts/maze-builder-main.js" ></script>
     <?php endif;?>
   <?php endif;?>
+  <?php if($page == "profile"):?>
+    <!-- <script src="public/scripts/profile.js"></script> -->
+    <script>
+    const changepic_form = document.querySelector('.changepic');
+    const changepic = document.querySelector("#changepic");
+
+      changepic.addEventListener('click', () => {
+        if(changepic_form.classList.contains('left')) {
+          changepic_form.classList.remove('left');
+        } else {
+          changepic_form.classList.add('left');
+        }
+      });
+    </script>
+  <?php endif;?>
 </body>
 </html>

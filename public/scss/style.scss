@@ -35,6 +35,47 @@ $icon-fonts: "mixdirectionsmedium";
   background-color: $alt-color;
 }
 
+%flat_charcoal_bg {
+  background-color: $charcoal;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.875em;
+}
+
+.border-btn {
+  @extend %with-bg_border;
+  background-color: $main-color;
+}
+
+.flat-btn {
+  @extend %flat_charcoal_bg;
+  display: block;
+  margin: 10px auto;
+}
+
+.cancel {
+  background-color: $red;
+  width: 190px;
+  font-size: 1em;
+}
+
+.upload {
+  background-color: #03c03c;
+}
+
+.delete {
+  background-color: $red;
+  width: auto;
+
+  i {
+    font-size: 1.5em;
+    vertical-align: sub;
+  }
+}
+
 /**
   General
 **/
@@ -61,10 +102,16 @@ button {
 
 a {
   font-family: $body-font;
+  text-decoration: none;
 }
 
 .err {
-  color: red;
+  color: $red;
+}
+
+.left {
+  position: absolute;
+  left: -999999px;
 }
 
 .wrapper {
@@ -122,7 +169,6 @@ h6 {
       font-family: $heading-font;
       color: #fff;
       font-size: 24px;
-      text-decoration: none;
       padding: 0 20px;
       border-radius: 15px;
       border: 3px solid transparent;
@@ -143,6 +189,7 @@ h6 {
   width: 400px;
   margin: 0 auto;
   @extend %with-bg_border;
+
   h2 {
     font-size: 2em;
     letter-spacing: 1px;
@@ -167,6 +214,41 @@ h6 {
     padding: 10px 20px;
     border-radius: 5px;
     border: 0;
+  }
+}
+
+.profile {
+  @extend %with-bg_border;
+  margin-top: 50px;
+
+  .changepic-btn {
+    display: block;
+    margin: 10px auto;
+    @extend %flat_charcoal_bg;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+  img {
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+.profile__editProfile {
+  display: inline-flex;
+}
+
+.profile__playGame {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+  a {
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 2em;
   }
 }
 
@@ -195,6 +277,14 @@ div[class^="profile"] {
   padding: 1px;
 }
 
+#result-modal {
+  @extend %with-bg_border;
+
+  #result-score {
+    font-size: 3.5em;
+  }
+}
+
 #coding-area {
   display: flex;
   justify-content: center;
@@ -207,7 +297,7 @@ div[class^="profile"] {
     vertical-align: middle;
     padding: 10px 20px;
     margin-left: 10px;
-    border: 3px solid $dark-brown;
+    border: 3px solid $charcoal;
     border-radius: 10px;
     background-color: $alt-color;
     color: $red;
@@ -329,7 +419,7 @@ div[class^="profile"] {
       padding: 10px;
       border-radius: 10px;
       border: 2px solid;
-      
+
       td{
         word-break: break-word;
         padding: 0 4px;
@@ -340,8 +430,6 @@ div[class^="profile"] {
     }
   }
 }
-
-#challenge-canvas {width: 100%;}
 
 #stage-form {
   .flex-wrapper {

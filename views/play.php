@@ -36,9 +36,13 @@ if(!isset($_SESSION['userid'])){
 </div>
 
 <div id="result-modal">
-  <div id="result-score"></div>
-  <button id="retry-button" class="end-buttons">Retry</button>
-  <button id="return-button" class="end-buttons">Back to Stage Select</button>
+  <div class="flex-wrapper">
+    <div id="result-score" class="block"></div>
+    <div class="block">
+      <button id="retry-button" class="end-buttons flat-btn"><i class="fas fa-redo"></i>  Retry</button>
+      <button id="return-button" class="end-buttons flat-btn"><i class="fas fa-sign-out-alt"></i>  Back to Stage Select</button>
+    </div>
+  </div>
 </div>
 <?php
 require_once 'partials/footer.php';

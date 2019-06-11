@@ -56,9 +56,7 @@ if(!isset($_SESSION['userid'])){
         </div>
         <div class="form__block">
             <button type="submit" name="submitUserEdit"> Edit!</button>
-            <div>
-                <a href="profile">Cancel</a>
-            </div>
+            <a href="profile" class="flat-btn cancel">Cancel</a>
         </div>
     </form>
 </div>
