@@ -240,6 +240,14 @@ h6 {
   display: inline-flex;
 }
 
+.profile__achievements {
+  img {
+    border:2px solid $charcoal;
+    background-color: $main-color;
+    padding: 1px;
+  }
+}
+
 .profile__playGame {
   display: flex;
   flex-flow: column;
