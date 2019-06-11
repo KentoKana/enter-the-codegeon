@@ -2,7 +2,7 @@
 require_once 'partials/header.php';
 require_once 'partials/navigation.php';
 if(isset($_SESSION['userid'])){
-  header('location: index');
+  header('location: profile');
 }
 ?>
 <header class="block">

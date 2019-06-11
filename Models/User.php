@@ -181,6 +181,11 @@ class User
         }
     }
 
+    public function deleteUser($id)
+    {
+        $this->collection->deleteOne(['_id' => new MongoDB\BSON\ObjectID($id)]);
+    }
+
     public function addStageCompleted($stageId, $stars)
     {
         $completedStages = $this->getCompletedStages();
