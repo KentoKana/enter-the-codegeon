@@ -98,6 +98,10 @@ h6 {
   padding: 10px 0;
 }
 
+#logo {
+  padding-left: 20px;
+}
+
 #logo,
 #menu {
   flex: 1 0 0;
@@ -177,7 +181,7 @@ div[class^="profile"] {
 #playing-area {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 #challenge-canvas {
@@ -190,7 +194,7 @@ div[class^="profile"] {
 #coding-area {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-flow: row wrap;
   padding: 0 20px;
 
@@ -257,7 +261,8 @@ div[class^="profile"] {
 #score {
   color: $red;
   text-align: left;
-  padding: 20px 20px 0;
+  padding: 0 20px;
+  margin: 0;
 }
 
 #play {
@@ -278,5 +283,11 @@ div[class^="profile"] {
   &::-webkit-scrollbar-thumb {
     background-color: $charcoal;
     border-radius: 20px;
+  }
+}
+
+@media screen and (max-width: 1367px) {
+  #move-list{
+    height: 180px;
   }
 }
