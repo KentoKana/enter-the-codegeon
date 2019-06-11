@@ -19,7 +19,7 @@ class User
     public function setFirstName($firstName)
     {
         if ($firstName == '' || empty($firstName)) {
-            $this->$firstName = false;
+            $this->firstName = false;
         } else {
             $this->firstName = $firstName;
         }
